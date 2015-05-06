@@ -1,17 +1,35 @@
-if (Meteor.isClient) {
-  // counter starts at 0
-  Session.setDefault('counter', 0);
+Transactions = new Mongo.Collection('transactions');
 
-  Template.hello.helpers({
-    counter: function () {
-      return Session.get('counter');
+if (Meteor.isClient) {
+
+  Template.ledger.helpers({
+    trans: function () {
+      var t = Transactions.find().fetch();
+
+      console.log("t -> ", t);
+
+
+      return t;
     }
   });
 
-  Template.hello.events({
-    'click button': function () {
-      // increment the counter when button is clicked
-      Session.set('counter', Session.get('counter') + 1);
+  Template.body.events({
+    'click #addTransaction': function (ev) {
+      Transactions.insert(
+        {
+          'vendor': 'test vendor',
+          'category': '',
+          'amount': '1.23',
+          'trans_date': "10/03/2015",
+          'cleared': false,
+          'deposit': false,
+          'recurring': false,
+          'deleted': false,
+          'memo': "check number 1231",
+          'month': '10/15',
+          'user_id': 'jlucio'
+        }
+      );
     }
   });
 }

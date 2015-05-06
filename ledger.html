@@ -1,14 +1,14 @@
 <head>
-  <title>simple-ledger</title>
+  <title>Simple Ledger</title>
 </head>
 
 <body>
-  <h1>Welcome to Meteor!</h1>
+  <h1>Simple Ledger</h1>
+  <button id='addTransaction'>Add Transaction</button>
 
-  {{> hello}}
+  {{> ledger}}
 </body>
 
-<template name="hello">
-  <button>Click Me</button>
-  <p>You've pressed the button {{counter}} times.</p>
+<template name="ledger">
+  {{> reactiveTable collection=trans}}
 </template>

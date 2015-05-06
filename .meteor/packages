@@ -8,3 +8,4 @@ meteor-platform
 autopublish
 insecure
 aslagle:reactive-table
+momentjs:moment
