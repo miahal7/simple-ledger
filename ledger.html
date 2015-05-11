@@ -7,7 +7,9 @@
   <h5>Bank Total: {{bankTotal}}</h5>
   <h5>User's Total: {{predictedTotal}}</h5>
 
-  <button id='addTransaction'>Add Transaction</button>
+
+
+  <button id='addTransaction' class="btn btn-primary">Add Transaction</button>
 
   {{> ledger}}
 </body>
@@ -17,19 +19,25 @@
 </template>
 
 <template name="vendor">
-  <input type="text" class="trans-form" placeholder="Vendor" value="{{vendor}}" data-trans-id="{{_id}}" data-field="vendor">
+  <input type="text" class="trans-form form-control typeahead" name="vendor" 
+    placeholder="Vendor" autocomplete="off" spellcheck="off"
+    value="{{vendor}}" data-trans-id="{{_id}}" data-field="vendor"
+    data-source="vendors">
 </template>
 
 <template name="category">
-  <input type="text" class="trans-form" placeholder="Category" value="{{category}}" data-trans-id="{{_id}}" data-field="category">
+  <input type="text" class="trans-form form-control typeahead" name="category" 
+    placeholder="Category" autocomplete="off" spellcheck="off" 
+    value="{{category}}" data-trans-id="{{_id}}" data-field="category"
+    data-source="categories">
 </template>
 
 <template name="amount">
-  <input type="text" class="trans-form" placeholder="$0.00" value="{{formattedAmount}}" data-trans-id="{{_id}}" data-field="amount">
+  <input type="text" class="trans-form form-control" placeholder="$0.00" value="{{formattedAmount}}" data-trans-id="{{_id}}" data-field="amount">
 </template>
 
 <template name="date"> 
-  <input type="text" class="trans-form" placeholder="{{date}}" value="{{date}}" data-trans-id="{{_id}}" data-field="date">
+  <input type="text" class="trans-form form-control" placeholder="{{date}}" value="{{date}}" data-trans-id="{{_id}}" data-field="date">
 </template>
 
 <template name="crd">

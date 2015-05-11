@@ -26,17 +26,11 @@ Template.body.helpers({
   }
 });
 
-Template.amount.helpers({
-  formattedAmount: function () {
-    return accounting.formatNumber(this.amount, 2);
-  }
-});
 
 Template.ledger.helpers({
   transactions: function () {
     return Transactions.find({deleted: false}, {sort: {recurring: -1, createdAt: 1}}).fetch();
   },
-
   tableSettings: function () {
     return {
       rowsPerPage: 10,
@@ -54,10 +48,12 @@ Template.ledger.helpers({
         key: 'vendor',
         label: 'Vendor',
         tmpl: Template.vendor
+        // Add typeahead to template
       }, {
         key: 'category',
         label: 'Category',
         tmpl: Template.category
+        // Add typeahead to template
       }, {
         key: 'amount',
         label: 'Amount',
@@ -79,6 +75,46 @@ Template.ledger.helpers({
   }
 });
 
+Template.category.helpers({
+  categories: function() {
+    var datasource = Categories.find().fetch().map(function(category){ return category.name; });
+
+    console.log("category datasource -> ", datasource);
+
+    return datasource;
+  }
+});
+
+Template.vendor.helpers({
+  vendors: function() {
+    var datasource = Vendors.find().fetch().map(function(vendor){ return vendor.name; });
+
+    console.log("vendor datasource -> ", datasource);
+
+    return datasource;
+  }
+});
+
+Template.category.onRendered(function () {
+  Meteor.typeahead.inject($(this.find('.trans-form')));
+});
+
+Template.vendor.onRendered(function () {
+    Meteor.typeahead.inject($(this.find('.trans-form')));
+});
+
+Template.amount.helpers({
+  formattedAmount: function () {
+    return accounting.formatNumber(this.amount, 2);
+  }
+});
+
+Template.body.events({
+  'click #addTransaction': function (event) {
+    Meteor.call('insertTransaction');
+  }
+});
+
 Template.ledger.events({
   'change input.trans-form, click button.trans-form': function (event) {
     var formEl = $(event.currentTarget);
@@ -96,6 +132,11 @@ Template.ledger.events({
     var vendor = event.target.value;      
 
     Meteor.call('upsertVendor', vendor);
+    // upsert should return the document, but if not:
+    // var vendor = Vendors.findOne({name: vendor, userId: userId});
+    // if(vendor.suggestedCategory){
+    //   set Transaction.category to vendor.suggestedCatory  
+    // } 
   },
   'change .category': function (event) {
     var tr = $(event.currentTarget).closest('tr');
@@ -103,6 +144,11 @@ Template.ledger.events({
     var category = event.target.value;      
 
     Meteor.call('upsertCategory', category);
+    // var vendor = Vendor.find({name: vendor, userId: userId});
+    // if(!vendor.suggestedCategory) {
+    //   vendor.suggestedCategory = category; 
+    //   vendor.save
+    // }
   },
   'click .delete': function (event) {
     var transId = $(event.currentTarget).data('trans-id');
@@ -110,8 +156,3 @@ Template.ledger.events({
   }
 });
 
-Template.body.events({
-  'click #addTransaction': function (event) {
-    Meteor.call('insertTransaction');
-  }
-});
