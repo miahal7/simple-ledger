@@ -96,11 +96,11 @@ Template.vendor.helpers({
 });
 
 Template.category.onRendered(function () {
-  Meteor.typeahead.inject($(this.find('.trans-form')));
+  Meteor.typeahead.inject($(this.find('.typeahead')));
 });
 
 Template.vendor.onRendered(function () {
-    Meteor.typeahead.inject($(this.find('.trans-form')));
+    Meteor.typeahead.inject($(this.find('.typeahead')));
 });
 
 Template.amount.helpers({
@@ -126,24 +126,46 @@ Template.ledger.events({
     transUpdate[field] = value;
     Meteor.call('updateTransaction', transId, transUpdate);
   },
-  'change .vendor': function (event) {
+  'change .vendor, typeahead:selected .vendor, typeahead:autocompleted .vendor': function (event){
     var tr = $(event.currentTarget).closest('tr');
     var categoryField = tr.find('.category');
-    var vendor = event.target.value;      
+    var vendor = $(event.target).typeahead('val'); 
+    var formEl = $(event.target);
+    var transUpdate = {vendor: vendor, updatedAt: moment().format()};
+    var transId = formEl.data('trans-id');
 
-    Meteor.call('upsertVendor', vendor);
+    if(vendor !== "" && vendor.length >= 2){
+      console.log("Updating user's vendor collection", vendor);
+      Meteor.call('updateTransaction', transId, transUpdate);    
+      Meteor.call('upsertVendor', vendor);
+    }
+  },
+  // 'change .vendor': function (event) {
+
+  //   var tr = $(event.currentTarget).closest('tr');
+  //   var categoryField = tr.find('.category');
+  //   var vendor = event.target.value.trim();      
+    
+  //   console.log(".vendor change-> ", vendor);  
+  //   console.log(".vendor .typeahead change -> ", vendor);    
+
+    // if(vendor !== "" && vendor.length >= 2){
+    //   Meteor.call('upsertVendor', vendor);
+    // }
     // upsert should return the document, but if not:
     // var vendor = Vendors.findOne({name: vendor, userId: userId});
     // if(vendor.suggestedCategory){
     //   set Transaction.category to vendor.suggestedCatory  
     // } 
-  },
+  // },
   'change .category': function (event) {
     var tr = $(event.currentTarget).closest('tr');
     var vendorField = tr.find('.vendor');
-    var category = event.target.value;      
-
-    Meteor.call('upsertCategory', category);
+    var category = event.target.value.trim();      
+    
+    if(vendor !== ""){
+      Meteor.call('upsertCategory', category);
+    }
     // var vendor = Vendor.find({name: vendor, userId: userId});
     // if(!vendor.suggestedCategory) {
     //   vendor.suggestedCategory = category; 

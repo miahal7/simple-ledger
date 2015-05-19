@@ -1,3 +1,5 @@
+var userId = 'jlucio';
+
 Meteor.methods({
   'insertTransaction': function () {
     Transactions.insert(
@@ -27,7 +29,7 @@ Meteor.methods({
   'upsertVendor': function (name) {
     Vendors.upsert({name: name, userId: userId},
       {
-        name: vendor,
+        name: name,
         userId: userId
       },
       {multi: false}

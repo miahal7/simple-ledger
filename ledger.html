@@ -2,7 +2,7 @@
   <title>Simple Ledger</title>
 </head>
 
-<body>
+<body style="margin: 10px;">
   <h1>Simple Ledger</h1>
   <h5>Bank Total: {{bankTotal}}</h5>
   <h5>User's Total: {{predictedTotal}}</h5>
@@ -19,14 +19,14 @@
 </template>
 
 <template name="vendor">
-  <input type="text" class="trans-form form-control typeahead" name="vendor" 
+  <input type="text" class="form-control typeahead" name="vendor" 
     placeholder="Vendor" autocomplete="off" spellcheck="off"
     value="{{vendor}}" data-trans-id="{{_id}}" data-field="vendor"
     data-source="vendors">
 </template>
 
 <template name="category">
-  <input type="text" class="trans-form form-control typeahead" name="category" 
+  <input type="text" class="form-control typeahead" name="category" 
     placeholder="Category" autocomplete="off" spellcheck="off" 
     value="{{category}}" data-trans-id="{{_id}}" data-field="category"
     data-source="categories">
