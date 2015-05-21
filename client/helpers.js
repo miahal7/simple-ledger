@@ -23,39 +23,13 @@ Template.ledger.helpers({
       showNavigation: "auto",
       class: "table table-condensed table-hover table-striped",
       id: 'ledger-table',
-      fields: [{
-        key: 'createAt',
-        label: 'Created At',
-        hidden: true,
-        hideToggle: true,
-        sort: 'ascending'
-      }, {
-        key: 'vendor',
-        label: 'Vendor',
-        tmpl: Template.vendor
-        // Add typeahead to template
-      }, {
-        key: 'category',
-        label: 'Category',
-        tmpl: Template.category
-        // Add typeahead to template
-      }, {
-        key: 'amount',
-        label: 'Amount',
-        tmpl: Template.amount
-      }, {
-        key: 'date',
-        label: 'Date',
-        tmpl: Template.date
-        }, {
-        key: '',
-        label: '',
-        tmpl: Template.crd
-      }, {
-        key: '',
-        label: '',
-        tmpl: Template.deleteRow
-      }]
+      fields: [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending'},
+               {key: 'vendor', label: 'Vendor', tmpl: Template.vendor},
+               {key: 'category', label: 'Category', tmpl: Template.category},
+               {key: 'amount', label: 'Amount', tmpl: Template.amount},
+               {key: 'date', label: 'Date', tmpl: Template.date},
+               {key: '', label: '', tmpl: Template.crd},
+               {key: '', label: '', tmpl: Template.deleteRow}]
     };
   }
 });
@@ -79,4 +53,3 @@ Template.amount.helpers({
     return accounting.formatNumber(this.amount, 2);
   }
 });
-
