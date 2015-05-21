@@ -1,3 +1,31 @@
+.undo-overlay {
+  background-color: rgba(225,225,225,.6);
+  /*display: none;*/
+  width: 0px;
+  height: 47px;
+  text-align: center;
+  padding-top: 14px;
+  position: absolute;
+  margin-top: -37px;
+  margin-left: -1022px;
+  z-index: 999;
+  -webkit-transition: width 1s; /* Safari */
+  transition: width 1s;
+}
+
+.undo-overlay a {
+  display: none;
+}
+
+.show-overlay {
+  -webkit-transition: width 1s; /* Safari */
+  transition: width 1s;  
+  width: 1093px;
+  height: 47px;
+
+  /*display: block;*/
+}
+
 .tt-input,
 .tt-hint {
 

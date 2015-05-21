@@ -10,6 +10,22 @@ Template.body.events({
   }
 });
 
+Template.deleteRow.events({
+  "click .delete": function (event, template) {
+    console.log('event -> ', event);
+    console.log('template -> ', template.lastNode);
+    var undo = template.find('.undo-overlay');
+    $(undo).addClass('show-overlay');
+    $(undo).find("a").show('slow');
+  },
+
+  "click .undo": function (event, template) {
+    var undo = template.find('.undo-overlay');
+    $(undo).removeClass('show-overlay');
+    $(undo).find("a").hide();
+  }
+});
+
 Template.ledger.events({
   'click .vendor, click .category, click .amount': function (event) {
     $(event.target).select();
@@ -25,10 +41,12 @@ Template.ledger.events({
     Meteor.call('updateTransaction', transId, transUpdate);
   },
  
-  'click .delete': function (event) {
-    var transId = $(event.currentTarget).data('trans-id');
-    Meteor.call('tempDeleteTransaction', transId);
-  },
+  // 'click .delete': function (event) {
+    // var transId = $(event.currentTarget).data('trans-id');
+    // var undo = $(event.target).closest("undo-overlay");
+    // console.log("undo -> ", undo.html());
+    // Meteor.call('tempDeleteTransaction', transId);
+  // },
 
   'change .vendor, typeahead:selected .vendor, typeahead:autocompleted .vendor': function (event){
     var tr = $(event.currentTarget).closest('tr');

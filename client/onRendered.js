@@ -1,5 +1,5 @@
 Template.vendor.onRendered(function () {
-    Meteor.typeahead.inject($(this.find('.typeahead')));
+  Meteor.typeahead.inject($(this.find('.typeahead')));
 });
 
 Template.category.onRendered(function () {
