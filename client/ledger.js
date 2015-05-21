@@ -15,6 +15,10 @@ var total = function (collection) {
   return accounting.formatMoney(total);
 };
 
+var month = function () {
+  return Session.get('month') || moment().format('MM/YY');
+}
+
 Template.body.helpers({
   bankTotal: function () {
     var transactions = Transactions.find({deleted: false, cleared: true});
@@ -29,7 +33,10 @@ Template.body.helpers({
 
 Template.ledger.helpers({
   transactions: function () {
-    return Transactions.find({deleted: false}, {sort: {recurring: -1, createdAt: 1}}).fetch();
+    return Transactions.find({month: month(), deleted: false}, {sort: {recurring: -1, createdAt: 1}}).fetch();
+  },
+  month: function () {
+    return moment(month(), 'MM/YY').format('MMM YYYY');
   },
   tableSettings: function () {
     return {
@@ -78,9 +85,6 @@ Template.ledger.helpers({
 Template.category.helpers({
   categories: function() {
     var datasource = Categories.find().fetch().map(function(category){ return category.name; });
-
-    console.log("category datasource -> ", datasource);
-
     return datasource;
   }
 });
@@ -88,9 +92,6 @@ Template.category.helpers({
 Template.vendor.helpers({
   vendors: function() {
     var datasource = Vendors.find().fetch().map(function(vendor){ return vendor.name; });
-
-    console.log("vendor datasource -> ", datasource);
-
     return datasource;
   }
 });
@@ -103,6 +104,13 @@ Template.vendor.onRendered(function () {
     Meteor.typeahead.inject($(this.find('.typeahead')));
 });
 
+Template.date.onRendered(function () {
+  // if(! $(".datepicker").hasClass("datepicker")){
+    $(".datepicker").datepicker();
+    // $(".date").addClass('datepicker');
+  // }
+});
+
 Template.amount.helpers({
   formattedAmount: function () {
     return accounting.formatNumber(this.amount, 2);
@@ -111,11 +119,20 @@ Template.amount.helpers({
 
 Template.body.events({
   'click #addTransaction': function (event) {
-    Meteor.call('insertTransaction');
+    Meteor.call('insertTransaction', month());
+  },
+  'click .previous': function (event) {
+    Session.set('month', moment(month(), 'MM/YY').subtract(1, 'month').format('MM/YY'));
+  },
+  'click .next': function (event) {
+    Session.set('month', moment(month(), 'MM/YY').add(1, 'month').format('MM/YY'));
   }
 });
 
 Template.ledger.events({
+  'click .vendor, click .category, click .amount': function (event) {
+    $(event.target).select();
+  },
   'change input.trans-form, click button.trans-form': function (event) {
     var formEl = $(event.currentTarget);
     var transId = formEl.data('trans-id');
@@ -140,37 +157,19 @@ Template.ledger.events({
       Meteor.call('upsertVendor', vendor);
     }
   },
-  // 'change .vendor': function (event) {
-
-  //   var tr = $(event.currentTarget).closest('tr');
-  //   var categoryField = tr.find('.category');
-  //   var vendor = event.target.value.trim();      
-    
-  //   console.log(".vendor change-> ", vendor);  
-  //   console.log(".vendor .typeahead change -> ", vendor);    
-
-    // if(vendor !== "" && vendor.length >= 2){
-    //   Meteor.call('upsertVendor', vendor);
-    // }
-    // upsert should return the document, but if not:
-    // var vendor = Vendors.findOne({name: vendor, userId: userId});
-    // if(vendor.suggestedCategory){
-    //   set Transaction.category to vendor.suggestedCatory  
-    // } 
-  // },
-  'change .category': function (event) {
+  'change .category, typeahead:selected .category, typeahead:autocompleted .category': function (event) {
     var tr = $(event.currentTarget).closest('tr');
     var vendorField = tr.find('.vendor');
-    var category = event.target.value.trim();      
-    
-    if(vendor !== ""){
+    var category = $(event.target).typeahead('val'); 
+    var formEl = $(event.target);
+    var transUpdate = {category: category, updatedAt: moment().format()};
+    var transId = formEl.data('trans-id');
+
+    if(category !== "" && category.length >= 2){
+      console.log("Updating user's category collection", category);
+      Meteor.call('updateTransaction', transId, transUpdate);    
       Meteor.call('upsertCategory', category);
     }
-    // var vendor = Vendor.find({name: vendor, userId: userId});
-    // if(!vendor.suggestedCategory) {
-    //   vendor.suggestedCategory = category; 
-    //   vendor.save
-    // }
   },
   'click .delete': function (event) {
     var transId = $(event.currentTarget).data('trans-id');

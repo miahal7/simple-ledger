@@ -7,7 +7,12 @@
   <h5>Bank Total: {{bankTotal}}</h5>
   <h5>User's Total: {{predictedTotal}}</h5>
 
-
+  <nav>
+    <ul class="pager">
+      <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Prev</a></li>
+      <li class="next"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+  </nav>
 
   <button id='addTransaction' class="btn btn-primary">Add Transaction</button>
 
@@ -15,6 +20,7 @@
 </body>
 
 <template name="ledger">
+  <h3>{{month}}</h3>
   {{> reactiveTable collection=transactions settings=tableSettings}}
 </template>
 
@@ -37,7 +43,7 @@
 </template>
 
 <template name="date"> 
-  <input type="text" class="trans-form form-control" placeholder="{{date}}" value="{{date}}" data-trans-id="{{_id}}" data-field="date">
+  <input type="text" class="trans-form form-control datepicker" placeholder="{{date}}" value="{{date}}" data-trans-id="{{_id}}" data-field="date">
 </template>
 
 <template name="crd">

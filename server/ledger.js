@@ -1,7 +1,7 @@
 var userId = 'jlucio';
 
 Meteor.methods({
-  'insertTransaction': function () {
+  'insertTransaction': function (month) {
     Transactions.insert(
       {
         vendor: '',
@@ -13,7 +13,7 @@ Meteor.methods({
         recurring: false,
         deleted: false,
         memo: '',
-        month: moment().format('MM/YY'),
+        month: month,
         userId: userId,
         createdAt: moment().format(),
         updatedAt: moment().format()
@@ -38,7 +38,7 @@ Meteor.methods({
   'upsertCategory': function (name) {
     Categories.upsert({name: name},
       {
-        name: vendor,
+        name: name,
         userId: userId
       },
       {multi: false}
