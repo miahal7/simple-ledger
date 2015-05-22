@@ -14,21 +14,35 @@ Template.ledger.helpers({
     return Transactions.find({month: month(), deleted: false}, {sort: {recurring: -1, createdAt: 1}}).fetch();
   },
   month: function () {
-    return moment(month(), 'MM/YY').format('MMM YYYY');
+    return moment(month(), 'MM/YY').format('MMMM YYYY');
   },
   tableSettings: function () {
+    var self = this;
     return {
       rowsPerPage: 10,
       showFilter: true,
       showNavigation: "auto",
+      rowClass: function (item) { 
+        if(item.cleared === true) {return "";}
+        if(item.deposit === true) {return "success";} 
+        if(item.cleared === false){return "danger";} 
+      },
       class: "table table-condensed table-hover table-striped",
       id: 'ledger-table',
       fields: [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending'},
-               {key: 'vendor', label: 'Vendor', tmpl: Template.vendor},
-               {key: 'category', label: 'Category', tmpl: Template.category},
-               {key: 'amount', label: 'Amount', tmpl: Template.amount},
-               {key: 'date', label: 'Date', tmpl: Template.date},
-               {key: '', label: '', tmpl: Template.crd},
+               {key: 'vendor', label: 'Vendor', tmpl: Template.vendor, fn: function(value){return value;}, sortByValue: true},
+               {key: 'category', label: 'Category', tmpl: Template.category, fn: function(value){return value;}, sortByValue: true},
+               {key: 'amount', label: 'Amount', tmpl: Template.amount, fn: function(value){return Number(value)*100;}, sortByValue: true},
+               {key: 'date', label: 'Date', tmpl: Template.date, fn: function(value){return value;}, sortByValue: true},
+               {key: 'cleared', label: '', tmpl: Template.crd,
+               fn: function(value, object){
+                var sortOnVal = (object.cleared === true)? "1" : "0";
+                sortOnVal += (object.recurring === true)? "1" : "0";
+                sortOnVal += (object.deposit === true)? "1" : "0";        
+
+                return sortOnVal;
+               },
+               sortByValue: true},
                {key: '', label: '', tmpl: Template.deleteRow}]
     };
   }

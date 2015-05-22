@@ -1,22 +1,25 @@
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Simple Ledger</title>
 </head>
 
 <body style="margin: 10px;">
-  <h1>Simple Ledger</h1>
-  <h5>Bank Total: {{bankTotal}}</h5>
-  <h5>User's Total: {{predictedTotal}}</h5>
+  <div class="container-fluid">
+    <h1>Simple Ledger</h1>
+    <h5>Bank Total: {{bankTotal}}</h5>
+    <h5>User's Total: {{predictedTotal}}</h5>
 
-  <nav>
-    <ul class="pager">
-      <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Prev</a></li>
-      <li class="next"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
-    </ul>
-  </nav>
+    <nav>
+      <ul class="pager">
+        <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Prev</a></li>
+        <li class="next"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
+      </ul>
+    </nav>
 
-  <button id='addTransaction' class="btn btn-primary">Add Transaction</button>
+    <button id='addTransaction' class="btn btn-primary">Add Transaction</button>
 
-  {{> ledger}}
+    {{> ledger}}
+  </div>
 </body>
 
 <template name="ledger">
