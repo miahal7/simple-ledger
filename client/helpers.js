@@ -19,9 +19,9 @@ Template.ledger.helpers({
   tableSettings: function () {
     var self = this;
     return {
-      rowsPerPage: 10,
+      rowsPerPage: 999,
       showFilter: true,
-      showNavigation: "auto",
+      showNavigation: "never",
       rowClass: function (item) { 
         if(item.cleared === true) {return "";}
         if(item.deposit === true) {return "success";} 
@@ -29,11 +29,11 @@ Template.ledger.helpers({
       },
       class: "table table-condensed table-hover table-striped",
       id: 'ledger-table',
-      fields: [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending'},
-               {key: 'vendor', label: 'Vendor', tmpl: Template.vendor, fn: function(value){return value;}, sortByValue: true},
-               {key: 'category', label: 'Category', tmpl: Template.category, fn: function(value){return value;}, sortByValue: true},
-               {key: 'amount', label: 'Amount', tmpl: Template.amount, fn: function(value){return Number(value)*100;}, sortByValue: true},
-               {key: 'date', label: 'Date', tmpl: Template.date, fn: function(value){return value;}, sortByValue: true},
+      fields: [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending', sortable: false},
+               {key: 'vendor', label: 'Vendor', tmpl: Template.vendor, fn: function(value){return value;}, sortByValue: true, sortable: false},
+               {key: 'category', label: 'Category', tmpl: Template.category, fn: function(value){return value;}, sortByValue: true, sortable: false},
+               {key: 'amount', label: 'Amount', tmpl: Template.amount, fn: function(value){return Number(value)*100;}, sortByValue: true, sortable: false},
+               {key: 'date', label: 'Date', tmpl: Template.date, fn: function(value){return value;}, sortByValue: true, sortable: false},
                {key: 'cleared', label: '', tmpl: Template.crd,
                fn: function(value, object){
                 var sortOnVal = (object.cleared === true)? "1" : "0";
@@ -42,7 +42,7 @@ Template.ledger.helpers({
 
                 return sortOnVal;
                },
-               sortByValue: true},
+               sortByValue: true, sortable: false},
                {key: '', label: '', tmpl: Template.deleteRow}]
     };
   }

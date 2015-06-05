@@ -1,6 +1,14 @@
 Template.body.events({
   'click #addTransaction': function (event) {
-    Meteor.call('insertTransaction', month());
+    Meteor.call('insertTransaction', month(), function () {
+      setTimeout(function () {
+        var target = $("tr:last").find('.vendor').find('input[name=vendor]');
+        $('html,body').animate({
+          scrollTop: target.offset().top
+        }, 1000);
+          target.focus();
+      }, 0);
+    });
   },
   'click .previous': function (event) {
     Session.set('month', moment(month(), 'MM/YY').subtract(1, 'month').format('MM/YY'));
@@ -17,6 +25,8 @@ Template.deleteRow.events({
     var undo = template.find('.undo-overlay');
     $(undo).addClass('show-overlay');
     $(undo).find("a").show('slow');
+    var transId = $(event.currentTarget).data('trans-id');
+    Meteor.call('tempDeleteTransaction', transId);
   },
 
   "click .undo": function (event, template) {
