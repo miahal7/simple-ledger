@@ -31,9 +31,12 @@ Template.deleteRow.events({
   },
 
   "click .undo": function (event, template) {
+    var transId = $(event.currentTarget).data('trans-id');
     var undo = template.find('.undo-overlay');
     $(undo).removeClass('show-overlay').width('0');
     $(undo).find("div").hide();
+
+    Meteor.call('updateTransaction', transId, {deleted: false, updatedAt: moment().format()});
   }
 });
 
