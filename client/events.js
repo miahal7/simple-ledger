@@ -6,7 +6,7 @@ Template.body.events({
         $('html,body').animate({
           scrollTop: target.offset().top
         }, 1000);
-          target.focus();
+          target.focus().select();
       }, 0);
     });
   },
@@ -20,19 +20,20 @@ Template.body.events({
 
 Template.deleteRow.events({
   "click .delete": function (event, template) {
-    console.log('event -> ', event);
-    console.log('template -> ', template.lastNode);
-    var undo = template.find('.undo-overlay');
-    $(undo).addClass('show-overlay');
-    $(undo).find("a").show('slow');
     var transId = $(event.currentTarget).data('trans-id');
+    var undo = template.find('.undo-overlay');
+    var trWidth = $(event.currentTarget).closest('tr').width();
+
+    $(undo).addClass('show-overlay').width(trWidth);
+    $(undo).find("div").show('fast');
+
     Meteor.call('tempDeleteTransaction', transId);
   },
 
   "click .undo": function (event, template) {
     var undo = template.find('.undo-overlay');
-    $(undo).removeClass('show-overlay');
-    $(undo).find("a").hide();
+    $(undo).removeClass('show-overlay').width('0');
+    $(undo).find("div").hide();
   }
 });
 
@@ -88,3 +89,9 @@ Template.ledger.events({
     }
   }  
 });
+
+window.onresize = function(event) {
+  var width = $(window).width() - 50;
+
+  $('.show-overlay').width(width);
+};

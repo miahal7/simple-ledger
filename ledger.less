@@ -1,29 +1,35 @@
+button {
+  outline: none !important;
+}
+
 .undo-overlay {
-  background-color: rgba(225,225,225,.6);
-  /*display: none;*/
+  background-color: rgba(217,83,79,.7);
   width: 0px;
   height: 47px;
   text-align: center;
-  padding-top: 14px;
+  padding-top: 7px;
   position: absolute;
   margin-top: -37px;
-  margin-left: -1022px;
-  z-index: 999;
+  z-index: 998;
   -webkit-transition: width 1s; /* Safari */
   transition: width 1s;
+  left: 25px;
 }
 
-.undo-overlay a {
+.undo-overlay .undo {
+  -webkit-transition: width 0s; /* Safari */
+  transition: width 0s;  
+  width: 57px;
+  float: right;
+  margin-right: 50%;
   display: none;
 }
 
 .show-overlay {
   -webkit-transition: width 1s; /* Safari */
   transition: width 1s;  
-  width: 1093px;
   height: 47px;
-
-  /*display: block;*/
+  right: 25px;
 }
 
 .tt-input,

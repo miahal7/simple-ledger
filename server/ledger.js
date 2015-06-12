@@ -26,6 +26,10 @@ Meteor.methods({
   'tempDeleteTransaction': function (_id) {
     Transactions.update(_id, {$set: {deleted: true, updatedAt: moment().format()}});
   },
+  'deleteFlaggedTransactions': function () {
+    var toBeDeleted = Transactions.find({userId: userId, deleted: true}).count();
+    console.log("toBeDeleted -> ", toBeDeleted);
+  },
   'upsertVendor': function (name) {
     Vendors.upsert({name: name, userId: userId},
       {
