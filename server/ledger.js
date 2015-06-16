@@ -21,14 +21,25 @@ Meteor.methods({
     );
   },
   'updateTransaction': function (_id, changed) {
+    console.log("Updating transaction " + _id + " with -> ", changed);
     Transactions.update(_id, {$set: changed});
   },
   'tempDeleteTransaction': function (_id) {
     Transactions.update(_id, {$set: {deleted: true, updatedAt: moment().format()}});
   },
-  'deleteFlaggedTransactions': function () {
-    var toBeDeleted = Transactions.find({userId: userId, deleted: true}).count();
-    console.log("toBeDeleted -> ", toBeDeleted);
+  'deleteFlaggedTransactions': function (_id) {
+    var deleted = false;
+    if(_id){
+      Transactions.remove({_id: _id, deleted: true, userId: userId});
+      deleted = true;
+      console.log("Flagged Transaction deleted");
+    } else {
+      Transactions.remove({userId: userId, deleted: true});
+      deleted = true;
+      console.log("Flagged Transaction(s) deleted");
+    }
+
+    return deleted;
   },
   'upsertVendor': function (name) {
     Vendors.upsert({name: name, userId: userId},

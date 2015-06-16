@@ -32,6 +32,34 @@ button {
   right: 25px;
 }
 
+.undo-timer-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0px;
+  left: -11px;
+  top: 19px;
+    transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+}
+
+.undo-timer {
+  transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+  -webkit-transition: width 10s; /* Safari */
+  transition: width 10s;  
+  position: absolute;
+  width: 0px;
+  height: 5px;
+  border-radius: 0 0 3px 3px;
+  background-color: #d2322d;
+}
+
+.undo-timer-end {
+    transition-timing-function: linear;
+  -webkit-transition-timing-function: linear;
+  width: 57px;
+}
+
 .tt-input,
 .tt-hint {
 

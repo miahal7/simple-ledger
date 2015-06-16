@@ -1,6 +1,6 @@
 Template.body.onRendered(function () {
   console.log("Body Rendered");
-  Meteor.call('deleteFlaggedTransactions')
+  Meteor.call('deleteFlaggedTransactions', false)
 
 });
 

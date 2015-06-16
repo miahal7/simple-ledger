@@ -28,12 +28,26 @@ Template.deleteRow.events({
     $(undo).find("div").show('fast');
 
     Meteor.call('tempDeleteTransaction', transId);
+    var timerWidth = 0;
+    $(undo).find(".undo-timer").addClass("undo-timer-end");
+
+    setTimeout(function () {
+      Meteor.call('deleteFlaggedTransactions', transId, function(err, res){
+        if(res === 'true') {
+          console.log("Permanently deleted " + transId);
+        } else {
+          console.log("Not deleted, undo pressed");
+        }
+      });
+    },11000);
+    
   },
 
   "click .undo": function (event, template) {
     var transId = $(event.currentTarget).data('trans-id');
     var undo = template.find('.undo-overlay');
     $(undo).removeClass('show-overlay').width('0');
+    $(undo).find(".undo-timer").removeClass("undo-timer-end");
     $(undo).find("div").hide();
 
     Meteor.call('updateTransaction', transId, {deleted: false, updatedAt: moment().format()});
