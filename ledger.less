@@ -101,18 +101,24 @@ button {
   margin: 0;
 }
 
+#ledger-table-header {
+  width: 100%;
+
+  tr {
+    height: 40px;
+
+    th {
+      padding: .75em 0;
+      border-bottom-width: 0px;
+    }
+  }
+}
+
 #ledger-table {
   thead {
-    background-color: #5b4282;
-    color: #f8f3ff;
+    display: none;
 
-    tr {
-      height: 40px;
 
-      th {
-        padding: .75em 1.5em;
-      }
-    }
   }
 
   .btn-default {

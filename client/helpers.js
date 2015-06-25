@@ -26,7 +26,7 @@ Template.ledger.helpers({
     var self = this;
     return {
       rowsPerPage: 999,
-      showFilter: true,
+      showFilter: false,
       showNavigation: "never",
       rowClass: function (item) { 
         if(item.cleared === true) {return "";}
