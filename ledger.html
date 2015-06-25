@@ -4,26 +4,52 @@
 </head>
 
 <body style="margin: 10px;">
-  <div class="container-fluid">
-    <h1>Simple Ledger</h1>
-    <h5>Bank Total: {{bankTotal}}</h5>
-    <h5>User's Total: {{predictedTotal}}</h5>
+    <nav class="navbar navbar-default navbar-fixed-top" style="padding-top: 5px; background-color: #5b4282; color: #fff;">
+      <div class="container">
+      
+        <div class="row">          
+          <div class="col-md-1">          
+            <button type="button" class="btn btn-primary previous">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> {{prevMonth}}
+            </button>
+          </div>  
 
-    <nav>
-      <ul class="pager">
-        <li class="previous"><a href="#"><span aria-hidden="true">&larr;</span> Prev</a></li>
-        <li class="next"><a href="#">Next <span aria-hidden="true">&rarr;</span></a></li>
-      </ul>
+          <div class="col-md-2"><h3 style="margin-top: 10px;">{{month}}</h3></div>
+
+          <div class="col-md-1">
+            <button type="button" class="btn btn-primary next">{{nextMonth}}
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            </button>
+          </div>
+
+          <div class="col-md-2"><h5>Bank Total: {{bankTotal}}</h5></div>
+          <div class="col-md-2"><h5>User's Total: {{predictedTotal}}</h5></div>
+
+          <div class="col-md-2">
+            <button id='addTransaction' class="btn btn-success">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New
+            </button>
+          </div>
+        </div>
+
+  
+
+        
+      </div>
     </nav>
+  <div class="container-fluid" style="margin-top: 120px;">
 
-    <button id='addTransaction' class="btn btn-primary">Add Transaction</button>
 
+   <!--  <div class="page-header" style="width: 100%; background-color: #5b4282; color: white; margin: 0 -25px; position:fixed; top: 0;">
+
+    </div> -->
+    <!-- <div style: 'margin-top: 45px;'> -->
     {{> ledger}}
+    <!-- </div> -->
   </div>
 </body>
 
 <template name="ledger">
-  <h3>{{month}}</h3>
   {{> reactiveTable collection=transactions settings=tableSettings}}
 </template>
 
@@ -51,14 +77,18 @@
 
 <template name="crd">
   <div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-default btn-sm trans-form {{#if cleared}}active{{/if}}" data-trans-id="{{_id}}" data-field="cleared">C</button>
-    <button type="button" class="btn btn-default btn-sm trans-form {{#if recurring}}active{{/if}}" data-trans-id="{{_id}}" data-field="recurring">R</button>
-    <button type="button" class="btn btn-default btn-sm trans-form {{#if deposit}}active{{/if}}" data-trans-id="{{_id}}" data-field="deposit">D</button>
+    <button type="button" class="btn btn-default btn-sm trans-form {{#if cleared}}active{{/if}}" data-trans-id="{{_id}}" data-field="cleared">
+      <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+    </button>
+    <!-- <button type="button" class="btn btn-default btn-sm trans-form {{#if recurring}}active{{/if}}" data-trans-id="{{_id}}" data-field="recurring">R</button>
+    <button type="button" class="btn btn-default btn-sm trans-form {{#if deposit}}active{{/if}}" data-trans-id="{{_id}}" data-field="deposit">D</button> -->
   </div>
 </template>
 
 <template name='deleteRow'>
-  <button type="button" class="btn btn-danger btn-sm delete" data-trans-id="{{_id}}">Delete</button>
+  <button type="button" class="btn btn-danger btn-sm delete" data-trans-id="{{_id}}">
+    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+  </button>
   <div class="undo-overlay">
     <div class='btn btn-sm btn-primary undo' data-trans-id="{{_id}}">
       <div class="undo-timer-wrapper">

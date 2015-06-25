@@ -6,15 +6,21 @@ Template.body.helpers({
   predictedTotal: function () {
     var transactions = Transactions.find({deleted: false});
     return total(transactions);
+  },
+  month: function () {
+    return moment(month(), 'MM/YY').format('MMMM YYYY');
+  },
+  prevMonth: function () {
+    return moment(month(), 'MM/YY').subtract(1, 'month').format('MMMM');
+  },
+  nextMonth: function () {
+    return moment(month(), 'MM/YY').add(1, 'month').format('MMMM');
   }
 });
 
 Template.ledger.helpers({
   transactions: function () {
     return Transactions.find({month: month()}, {sort: {recurring: -1, createdAt: 1}}).fetch();
-  },
-  month: function () {
-    return moment(month(), 'MM/YY').format('MMMM YYYY');
   },
   tableSettings: function () {
     var self = this;
