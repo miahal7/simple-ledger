@@ -9,8 +9,8 @@ autopublish
 insecure
 aslagle:reactive-table
 momentjs:moment
-mrt:bootstrap-3
 sergeyt:typeahead
 rajit:bootstrap3-datepicker
 lepozepo:accounting
 less
+nemo64:bootstrap

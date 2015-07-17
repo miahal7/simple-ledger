@@ -39,7 +39,7 @@ Template.deleteRow.events({
           console.log("Not deleted, undo pressed");
         }
       });
-    },11000);
+    },6000);
     
   },
 

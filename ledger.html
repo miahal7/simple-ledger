@@ -4,7 +4,7 @@
 </head>
 
 <body style="margin: 10px;">
-    <nav class="navbar navbar-default navbar-fixed-top" style="padding-top: 5px; border-bottom-width: 0px; background-color: #5b4282; color: #f8f3ff;">
+    <nav class="navbar navbar-default navbar-fixed-top" style="padding-top: 5px; border-bottom-width: 0px;">
       <div class="container">
       
         <div class="row">          
@@ -92,16 +92,18 @@
 
 <template name="crd">
   <div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-default btn-sm trans-form {{#if cleared}}active{{/if}}" data-trans-id="{{_id}}" data-field="cleared">
+    <button type="button" class="btn btn-default  trans-form {{#if cleared}}active{{/if}}" data-trans-id="{{_id}}" data-field="cleared">
       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
     </button>
-    <!-- <button type="button" class="btn btn-default btn-sm trans-form {{#if recurring}}active{{/if}}" data-trans-id="{{_id}}" data-field="recurring">R</button>
-    <button type="button" class="btn btn-default btn-sm trans-form {{#if deposit}}active{{/if}}" data-trans-id="{{_id}}" data-field="deposit">D</button> -->
+    <!-- <button type="button" class="btn btn-default  trans-form {{#if recurring}}active{{/if}}" data-trans-id="{{_id}}" data-field="recurring">R</button> -->
+    <button type="button" class="btn btn-default trans-form {{#if deposit}}active{{/if}}" data-trans-id="{{_id}}" data-field="deposit">
+      <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+    </button>
   </div>
 </template>
 
 <template name='deleteRow'>
-  <button type="button" class="btn btn-danger btn-sm delete" data-trans-id="{{_id}}">
+  <button type="button" class="btn btn-danger  delete" data-trans-id="{{_id}}">
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
   </button>
   <div class="undo-overlay">
