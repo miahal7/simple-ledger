@@ -4,54 +4,59 @@
 </head>
 
 <body style="margin: 10px;">
-    <nav class="navbar navbar-default navbar-fixed-top" style="padding-top: 5px; border-bottom-width: 0px;">
-      <div class="container">
-      
-        <div class="row">          
-          <div class="col-md-1">          
-            <button type="button" class="btn btn-primary previous">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> {{prevMonth}}
-            </button>
-          </div>  
+  <nav class="navbar navbar-default navbar-fixed-top" style="padding-top: 5px; border-bottom-width: 0px;">
+    <div class="container">
+      <h4 style="float:left; clear: right;">{{> loginButtons}}</h4>
 
-          <div class="col-md-2"><h3 style="margin-top: 10px;">{{month}}</h3></div>
+      {{#if currentUser}}
+      <div class="row">          
+        <div class="col-md-1">          
+          <button type="button" class="btn btn-primary previous">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> {{prevMonth}}
+          </button>
+        </div>  
 
-          <div class="col-md-1">
-            <button type="button" class="btn btn-primary next">{{nextMonth}}
-              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            </button>
-          </div>
+        <div class="col-md-2"><h3 style="margin-top: 10px;">{{month}}</h3></div>
 
-          <div class="col-md-2"><h5>Bank Total: {{bankTotal}}</h5></div>
-          <div class="col-md-2"><h5>User's Total: {{predictedTotal}}</h5></div>
-
-          <div class="col-md-2">
-            <button id='addTransaction' class="btn btn-success">
-              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New
-            </button>
-          </div>
+        <div class="col-md-1">
+          <button type="button" class="btn btn-primary next">{{nextMonth}}
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+          </button>
         </div>
 
-        <div class="row">  
-          <div class="col-md-12">
-        
-            <table id="ledger-table-header">
-              <thead>
-                <tr>
-                  <th>Vendor</th>
-                  <th>Category</th>
-                  <th>Amount</th>
-                  <th>Date</th>
-                  <th></th>
-                  <th></th>
-                </tr>
-              </thead>
-            </table>
-          </div>
+        <div class="col-md-2"><h5>Bank Total: {{bankTotal}}</h5></div>
+        <div class="col-md-2"><h5>User's Total: {{predictedTotal}}</h5></div>
+
+        <div class="col-md-2">
+          <button id='addTransaction' class="btn btn-success">
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New
+          </button>
         </div>
       </div>
 
-    </nav>
+      <div class="row">  
+        <div class="col-md-12">
+      
+          <table id="ledger-table-header">
+            <thead>
+              <tr>
+                <th>Vendor</th>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    {{/if}}
+    </div>
+
+  </nav>
+
+
   <div class="container-fluid" style="margin-top: 120px;">
 
 
@@ -59,7 +64,10 @@
 
     </div> -->
     <!-- <div style: 'margin-top: 45px;'> -->
-    {{> ledger}}
+      {{#if currentUser}}
+
+      {{> ledger}}
+      {{/if}}
     <!-- </div> -->
   </div>
 </body>

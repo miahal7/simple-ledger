@@ -20,7 +20,7 @@ Template.body.helpers({
 
 Template.ledger.helpers({
   transactions: function () {
-    return Transactions.find({month: month()}, {sort: {recurring: -1, createdAt: 1}}).fetch();
+    return Transactions.find({month: month()}).fetch();
   },
   tableSettings: function () {
     var self = this;
