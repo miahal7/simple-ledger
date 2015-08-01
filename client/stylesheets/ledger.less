@@ -1,3 +1,29 @@
+@import '../lib/custom.bootstrap.less';
+
+.headroom {
+    -webkit-transition: transform 200ms linear;
+    -moz-transition: transform 200ms linear;
+    -ms-transition: transform 200ms linear;
+    -o-transition: transform 200ms linear;
+    transition: transform 200ms linear;
+}
+.headroom--pinned {
+    -webkit-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    transform: translateY(0%);
+
+}
+.headroom--unpinned {
+    -webkit-transform: translateY(-72%);
+    -moz-transform: translateY(-72%);
+    -ms-transform: translateY(-72%);
+    -o-transform: translateY(-72%);
+    transform: translateY(-72%);
+
+}
+
 button {
   outline: none !important;
 }
@@ -190,3 +216,150 @@ button {
     }    
   }
 }
+
+@media (max-width: @screen-xs-max) {
+  .container-fluid {
+    margin-top: 210px;
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .container-fluid {
+    margin-top: 200px;
+  }
+}
+
+@media (min-width: @screen-md-min) {
+  .container-fluid {
+    margin-top: 160px;
+  }
+}
+
+@media (min-width: @screen-lg-min) { 
+  .container-fluid {
+    margin-top: 115px;
+  }
+}
+
+
+// iPad in portrait & landscape
+// @media only screen 
+// and (min-device-width : 768px) 
+// and (max-device-width : 1024px)  { 
+
+// }
+
+// // iPad in landscape
+// @media only screen 
+// and (min-device-width : 768px) 
+// and (max-device-width : 1024px) 
+// and (orientation : landscape) { 
+
+// }
+
+// // iPad in portrait
+// @media only screen 
+// and (min-device-width : 768px) 
+// and (max-device-width : 1024px) 
+// and (orientation : portrait) { 
+
+// }
+
+// // Retina iPad in portrait & landscape
+// @media only screen 
+// and (min-device-width : 768px) 
+// and (max-device-width : 1024px)
+// and (-webkit-min-device-pixel-ratio: 2) { 
+
+// }
+
+// // Retina iPad in landscape
+// @media only screen 
+// and (min-device-width : 768px) 
+// and (max-device-width : 1024px) 
+// and (orientation : landscape)
+// and (-webkit-min-device-pixel-ratio: 2) { 
+
+// }
+
+// // Retina iPad in portrait
+// @media only screen 
+// and (min-device-width : 768px) 
+// and (max-device-width : 1024px) 
+// and (orientation : portrait)
+// and (-webkit-min-device-pixel-ratio: 2) { 
+
+// }
+
+// // iPhone 6 in portrait & landscape
+// @media only screen 
+// and (min-device-width : 375px) 
+// and (max-device-width : 667px) { /* STYLES GO HERE */}
+
+// // iPhone 6 in landscape
+// @media only screen 
+// and (min-device-width : 375px) 
+// and (max-device-width : 667px) 
+// and (orientation : landscape) { /* STYLES GO HERE */}
+
+// // iPhone 6 in portrait
+// @media only screen 
+// and (min-device-width : 375px) 
+// and (max-device-width : 667px) 
+// and (orientation : portrait) { /* STYLES GO HERE */ }
+
+// // iPhone 6 Plus Media Queries
+// // iPhone 6 Plus in portrait & landscape
+// @media only screen 
+// and (min-device-width : 414px) 
+// and (max-device-width : 736px) { /* STYLES GO HERE */}
+
+// // iPhone 6 Plus in landscape
+// @media only screen 
+// and (min-device-width : 414px) 
+// and (max-device-width : 736px) 
+// and (orientation : landscape) { /* STYLES GO HERE */}
+
+// // iPhone 6 Plus in portrait
+// @media only screen 
+// and (min-device-width : 414px) 
+// and (max-device-width : 736px) 
+// and (orientation : portrait) { /* STYLES GO HERE */ }
+
+// // iPhone 5 & 5S Media Queries
+// // iPhone 5 & 5S in portrait & landscape
+// @media only screen 
+// and (min-device-width : 320px) 
+// and (max-device-width : 568px) { /* STYLES GO HERE */}
+
+// // iPhone 5 & 5S in landscape
+// @media only screen 
+// and (min-device-width : 320px) 
+// and (max-device-width : 568px) 
+// and (orientation : landscape) { /* STYLES GO HERE */}
+
+// // iPhone 5 & 5S in portrait
+// @media only screen 
+// and (min-device-width : 320px) 
+// and (max-device-width : 568px) 
+// and (orientation : portrait) { /* STYLES GO HERE */ }
+
+// // iPhone 2G, 3G, 4, 4S Media Queries
+// // It's noteworthy that these media queries are also the same for iPod Touch generations 1-4.
+
+// // iPhone 2G-4S in portrait & landscape
+// @media only screen 
+// and (min-device-width : 320px) 
+// and (max-device-width : 480px) { /* STYLES GO HERE */}
+
+// // iPhone 2G-4S in landscape
+// @media only screen 
+// and (min-device-width : 320px) 
+// and (max-device-width : 480px) 
+// and (orientation : landscape) { /* STYLES GO HERE */}
+
+// // iPhone 2G-4S in portrait
+// @media only screen 
+// and (min-device-width : 320px) 
+// and (max-device-width : 480px) 
+// and (orientation : portrait) { /* STYLES GO HERE */ }

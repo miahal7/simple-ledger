@@ -17,3 +17,4 @@ accounts-google
 accounts-ui
 accounts-password
 service-configuration
+mystor:device-detection

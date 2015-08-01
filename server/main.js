@@ -1,5 +1,3 @@
-var userId = 'jlucio';
-
 Meteor.methods({
   'insertTransaction': function (month) {
     Transactions.insert(
@@ -14,7 +12,7 @@ Meteor.methods({
         deleted: false,
         memo: '',
         month: month,
-        userId: userId,
+        userId: Meteor.userId(),
         createdAt: moment().format(),
         updatedAt: moment().format()
       }
@@ -30,11 +28,11 @@ Meteor.methods({
   'deleteFlaggedTransactions': function (_id) {
     var deleted = false;
     if(_id){
-      Transactions.remove({_id: _id, deleted: true, userId: userId});
+      Transactions.remove({_id: _id, deleted: true, userId: Meteor.userId()});
       deleted = true;
       console.log("Flagged Transaction deleted");
     } else {
-      Transactions.remove({userId: userId, deleted: true});
+      Transactions.remove({userId: Meteor.userId(), deleted: true});
       deleted = true;
       console.log("Flagged Transaction(s) deleted");
     }
@@ -42,10 +40,10 @@ Meteor.methods({
     return deleted;
   },
   'upsertVendor': function (name) {
-    Vendors.upsert({name: name, userId: userId},
+    Vendors.upsert({name: name, userId: Meteor.userId()},
       {
         name: name,
-        userId: userId
+        userId: Meteor.userId()
       },
       {multi: false}
     );
@@ -54,7 +52,7 @@ Meteor.methods({
     Categories.upsert({name: name},
       {
         name: name,
-        userId: userId
+        userId: Meteor.userId()
       },
       {multi: false}
     );

@@ -8,13 +8,39 @@ Template.body.helpers({
     return total(transactions);
   },
   month: function () {
-    return moment(month(), 'MM/YY').format('MMMM YYYY');
+    var fmtdMonth = moment(month(), 'MM/YY').format("MMM 'YY"); //Phone is default
+    
+    if(Meteor.Device.isTablet()) {
+      fmtdMonth = moment(month(), 'MM/YY').format('MMM YYYY');
+    } else if(!Meteor.Device.isPhone()){
+      fmtdMonth = moment(month(), 'MM/YY').format('MMMM YYYY');
+    }
+
+    return fmtdMonth;
   },
   prevMonth: function () {
-    return moment(month(), 'MM/YY').subtract(1, 'month').format('MMMM');
+    var fmtdMonth = ""; //Phone is default
+
+    if(Meteor.Device.isTablet()) {
+      fmtdMonth = moment(month(), 'MM/YY').subtract(1, 'month').format('MMM');
+    }
+    else if(!Meteor.Device.isPhone()) {
+      fmtdMonth = moment(month(), 'MM/YY').subtract(1, 'month').format('MMMM')
+    }
+
+    return fmtdMonth;
   },
   nextMonth: function () {
-    return moment(month(), 'MM/YY').add(1, 'month').format('MMMM');
+    var fmtdMonth = ""; //Phone is default
+
+    if(Meteor.Device.isTablet()) {
+      fmtdMonth = moment(month(), 'MM/YY').add(1, 'month').format('MMM');
+    }
+    else if(!Meteor.Device.isPhone()) {
+      fmtdMonth = moment(month(), 'MM/YY').add(1, 'month').format('MMMM')
+    }
+
+    return fmtdMonth;
   }
 });
 
