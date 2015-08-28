@@ -39,10 +39,8 @@ Template.deleteRow.events({
           console.log("Not deleted, undo pressed");
         }
       });
-    },6000);
-    
+    },6000);    
   },
-
   "click .undo": function (event, template) {
     var transId = $(event.currentTarget).data('trans-id');
     var undo = template.find('.undo-overlay');
@@ -56,7 +54,12 @@ Template.deleteRow.events({
 
 Template.ledger.events({
   'click .vendor, click .category, click .amount': function (event) {
-    $(event.target).select();
+    try {
+      $(event.target).get(0).setSelectionRange(0,9999);
+    }
+    catch(e) {
+      $(event.target).select();
+    }    
   },
   'change input.trans-form, click button.trans-form': function (event) {
     var formEl = $(event.currentTarget);
@@ -68,18 +71,10 @@ Template.ledger.events({
     transUpdate[field] = value;
     Meteor.call('updateTransaction', transId, transUpdate);
   },
- 
-  // 'click .delete': function (event) {
-    // var transId = $(event.currentTarget).data('trans-id');
-    // var undo = $(event.target).closest("undo-overlay");
-    // console.log("undo -> ", undo.html());
-    // Meteor.call('tempDeleteTransaction', transId);
-  // },
-
   'change .vendor, typeahead:selected .vendor, typeahead:autocompleted .vendor': function (event){
     var tr = $(event.currentTarget).closest('tr');
     var categoryField = tr.find('.category');
-    var vendor = $(event.target).typeahead('val'); 
+    var vendor = $(event.target).typeahead('val').trim(); 
     var formEl = $(event.target);
     var transUpdate = {vendor: vendor, updatedAt: moment().format()};
     var transId = formEl.data('trans-id');
@@ -90,11 +85,10 @@ Template.ledger.events({
       Meteor.call('upsertVendor', vendor);
     }
   },
-
   'change .category, typeahead:selected .category, typeahead:autocompleted .category': function (event) {
     var tr = $(event.currentTarget).closest('tr');
     var vendorField = tr.find('.vendor');
-    var category = $(event.target).typeahead('val'); 
+    var category = $(event.target).typeahead('val').trim(); 
     var formEl = $(event.target);
     var transUpdate = {category: category, updatedAt: moment().format()};
     var transId = formEl.data('trans-id');

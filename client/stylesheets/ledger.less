@@ -28,7 +28,6 @@ button {
   outline: none !important;
 }
 
-
 .table > thead > tr > td.danger, 
 .table > tbody > tr > td.danger, 
 .table > tfoot > tr > td.danger, 
@@ -74,11 +73,11 @@ button {
   text-align: center;
   padding-top: 7px;
   position: absolute;
-  margin-top: -37px;
+  margin-top: -35px;
   z-index: 998;
   -webkit-transition: width 1s; /* Safari */
   transition: width 1s;
-  left: 25px;
+  left: 15px;
 }
 
 .undo-overlay .undo {
@@ -114,7 +113,8 @@ button {
   transition: width 6s;  
   position: absolute;
   width: 0px;
-  height: 5px;
+  height: 3px;
+  top: 2px;
   border-radius: 0;
   background-color: #d43f3a;
 }
@@ -147,7 +147,7 @@ button {
   width: 100%;
   margin-top: 5px;
   padding: 3px 0;
-  background-color: #fff;
+  background-color: #df691a;
   border: 1px solid #ccc;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 4px;
@@ -178,8 +178,31 @@ button {
     height: 40px;
 
     th {
-      padding: .75em 0;
+      padding: .75em 0 .25em 0;
       border-bottom-width: 0px;
+    }
+  }
+}
+
+div.datepicker {
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, .5);
+  -webkit-box-shadow: 0px 6px 12px rgba(0, 0, 0, .5);
+  z-index: 9999 !important;
+
+  table tr td.active,
+  table tr td span.active {
+    background-color: @brand-success !important; //;
+  }
+
+  table tr td.day,
+  table tr td span.month,
+  table tr td span.year,
+  table th.datepicker-switch,
+  table th.next,
+  table th.prev,
+  table th.clear {
+    &.focused, &:hover {
+      background-color: @brand-primary!important;
     }
   }
 }
@@ -215,10 +238,17 @@ button {
       box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(0, 0, 0, 0.6);
     }    
   }
+
+
+  
 }
 
 @media (max-width: @screen-xs-max) {
   .container-fluid {
+    margin-top: 210px;
+  }
+
+  div.datepicker {
     margin-top: 210px;
   }
 }
@@ -227,10 +257,18 @@ button {
   .container-fluid {
     margin-top: 200px;
   }
+
+  div.datepicker {
+    margin-top: 200px;
+  }
 }
 
 @media (min-width: @screen-md-min) {
   .container-fluid {
+    margin-top: 160px;
+  }
+
+  div.datepicker {
     margin-top: 160px;
   }
 }
@@ -239,127 +277,10 @@ button {
   .container-fluid {
     margin-top: 115px;
   }
+
+  div.datepicker {
+    margin-top: 115px;
+  }
 }
 
 
-// iPad in portrait & landscape
-// @media only screen 
-// and (min-device-width : 768px) 
-// and (max-device-width : 1024px)  { 
-
-// }
-
-// // iPad in landscape
-// @media only screen 
-// and (min-device-width : 768px) 
-// and (max-device-width : 1024px) 
-// and (orientation : landscape) { 
-
-// }
-
-// // iPad in portrait
-// @media only screen 
-// and (min-device-width : 768px) 
-// and (max-device-width : 1024px) 
-// and (orientation : portrait) { 
-
-// }
-
-// // Retina iPad in portrait & landscape
-// @media only screen 
-// and (min-device-width : 768px) 
-// and (max-device-width : 1024px)
-// and (-webkit-min-device-pixel-ratio: 2) { 
-
-// }
-
-// // Retina iPad in landscape
-// @media only screen 
-// and (min-device-width : 768px) 
-// and (max-device-width : 1024px) 
-// and (orientation : landscape)
-// and (-webkit-min-device-pixel-ratio: 2) { 
-
-// }
-
-// // Retina iPad in portrait
-// @media only screen 
-// and (min-device-width : 768px) 
-// and (max-device-width : 1024px) 
-// and (orientation : portrait)
-// and (-webkit-min-device-pixel-ratio: 2) { 
-
-// }
-
-// // iPhone 6 in portrait & landscape
-// @media only screen 
-// and (min-device-width : 375px) 
-// and (max-device-width : 667px) { /* STYLES GO HERE */}
-
-// // iPhone 6 in landscape
-// @media only screen 
-// and (min-device-width : 375px) 
-// and (max-device-width : 667px) 
-// and (orientation : landscape) { /* STYLES GO HERE */}
-
-// // iPhone 6 in portrait
-// @media only screen 
-// and (min-device-width : 375px) 
-// and (max-device-width : 667px) 
-// and (orientation : portrait) { /* STYLES GO HERE */ }
-
-// // iPhone 6 Plus Media Queries
-// // iPhone 6 Plus in portrait & landscape
-// @media only screen 
-// and (min-device-width : 414px) 
-// and (max-device-width : 736px) { /* STYLES GO HERE */}
-
-// // iPhone 6 Plus in landscape
-// @media only screen 
-// and (min-device-width : 414px) 
-// and (max-device-width : 736px) 
-// and (orientation : landscape) { /* STYLES GO HERE */}
-
-// // iPhone 6 Plus in portrait
-// @media only screen 
-// and (min-device-width : 414px) 
-// and (max-device-width : 736px) 
-// and (orientation : portrait) { /* STYLES GO HERE */ }
-
-// // iPhone 5 & 5S Media Queries
-// // iPhone 5 & 5S in portrait & landscape
-// @media only screen 
-// and (min-device-width : 320px) 
-// and (max-device-width : 568px) { /* STYLES GO HERE */}
-
-// // iPhone 5 & 5S in landscape
-// @media only screen 
-// and (min-device-width : 320px) 
-// and (max-device-width : 568px) 
-// and (orientation : landscape) { /* STYLES GO HERE */}
-
-// // iPhone 5 & 5S in portrait
-// @media only screen 
-// and (min-device-width : 320px) 
-// and (max-device-width : 568px) 
-// and (orientation : portrait) { /* STYLES GO HERE */ }
-
-// // iPhone 2G, 3G, 4, 4S Media Queries
-// // It's noteworthy that these media queries are also the same for iPod Touch generations 1-4.
-
-// // iPhone 2G-4S in portrait & landscape
-// @media only screen 
-// and (min-device-width : 320px) 
-// and (max-device-width : 480px) { /* STYLES GO HERE */}
-
-// // iPhone 2G-4S in landscape
-// @media only screen 
-// and (min-device-width : 320px) 
-// and (max-device-width : 480px) 
-// and (orientation : landscape) { /* STYLES GO HERE */}
-
-// // iPhone 2G-4S in portrait
-// @media only screen 
-// and (min-device-width : 320px) 
-// and (max-device-width : 480px) 
-// and (orientation : portrait) { /* STYLES GO HERE */ }

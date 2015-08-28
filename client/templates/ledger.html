@@ -1,5 +1,6 @@
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" >
+
   <title>Simple Ledger</title>
 </head>
 
@@ -29,12 +30,6 @@
 
         <div class="col-lg-2 col-md-offset-1 col-md-2 col-sm-6 col-xs-6 "><h5>Bank Total: {{bankTotal}}</h5></div>
         <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 "><h5>User's Total: {{predictedTotal}}</h5></div>
-
-  <!--       <div class="hidden-sm hidden-xs hidden-md">
-          <button id='addTransaction' class="btn btn-success">
-            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New
-          </button>
-        </div> -->
         {{/if}}
       </div>
 
@@ -42,14 +37,19 @@
 
       <div class="row">  
         <div class="col-md-12">
-      
+          <div class="datepicker-container-5s"></div>
           <table id="ledger-table-header" style="line-height: 1em;">
             <thead>
               <tr>
                 <th>Vendor</th>
+                {{#if notPhone}}
                 <th>Category</th>
+                {{/if}}
                 <th>Amount</th>
+                {{#if notPhone}}
                 <th>Date</th>
+                {{/if}}
+
                 <th style="width:10%;"></th>
                 <th style="width:10%;">
                   <button id='addTransaction' class="btn btn-sm btn-success">
@@ -71,17 +71,13 @@
 
 
   <div class="container-fluid">
-
-   <!--  <div class="page-header" style="width: 100%; background-color: #5b4282; color: white; margin: 0 -25px; position:fixed; top: 0;">
-
-    </div> -->
-    <!-- <div style: 'margin-top: 45px;'> -->
       {{#if currentUser}}
-
       {{> ledger}}
       {{/if}}
-    <!-- </div> -->
   </div>
+
+  {{invokeDatepickerAfterLoad}}
+
 </body>
 
 <template name="ledger">
@@ -103,16 +99,16 @@
 </template>
 
 <template name="amount">
-  <input type="text" class="trans-form form-control" placeholder="$0.00" value="{{formattedAmount}}" data-trans-id="{{_id}}" data-field="amount">
+  <input type="number" class="trans-form form-control" placeholder="$0.00" value="{{formattedAmount}}" data-trans-id="{{_id}}" data-field="amount">
 </template>
 
 <template name="date"> 
-  <input type="text" class="trans-form form-control datepicker" placeholder="{{date}}" value="{{date}}" data-trans-id="{{_id}}" data-field="date">
+  <input type="text" readonly class="trans-form form-control datepicker" placeholder="{{date}}" value="{{date}}" data-trans-id="{{_id}}" data-field="date">
 </template>
 
 <template name="crd">
   <div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-default  trans-form {{#if cleared}}active{{/if}}" data-trans-id="{{_id}}" data-field="cleared">
+    <button type="button" class="btn btn-default btn-sm trans-form {{#if cleared}}active{{/if}}" data-trans-id="{{_id}}" data-field="cleared">
       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
     </button>
     <!-- <button type="button" class="btn btn-default  trans-form {{#if recurring}}active{{/if}}" data-trans-id="{{_id}}" data-field="recurring">R</button> -->
@@ -123,7 +119,7 @@
 </template>
 
 <template name='deleteRow'>
-  <button type="button" class="btn btn-danger  delete" data-trans-id="{{_id}}">
+  <button type="button" class="btn btn-danger btn-sm delete" data-trans-id="{{_id}}">
     <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
   </button>
   <div class="undo-overlay">

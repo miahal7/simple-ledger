@@ -41,6 +41,9 @@ Template.body.helpers({
     }
 
     return fmtdMonth;
+  },
+  notPhone: function () {
+    return !Meteor.Device.isPhone();
   }
 });
 
@@ -49,7 +52,55 @@ Template.ledger.helpers({
     return Transactions.find({month: month()}).fetch();
   },
   tableSettings: function () {
-    var self = this;
+    var fields = [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending', sortable: false},
+                  {key: 'vendor', label: 'Vendor', tmpl: Template.vendor, fn: function(value){return value;}, sortByValue: true, sortable: false},
+                  {key: 'amount', label: 'Amount', tmpl: Template.amount, fn: function(value){return Number(value)*100;}, sortByValue: true, sortable: false},
+                  {key: 'cleared', label: '', tmpl: Template.crd,
+                  fn: function(value, object){
+                   var sortOnVal = (object.cleared === true)? "1" : "0";
+                   sortOnVal += (object.recurring === true)? "1" : "0";
+                   sortOnVal += (object.deposit === true)? "1" : "0";        
+      
+                   return sortOnVal;
+                  },
+                  sortByValue: true, sortable: false},
+                  {key: '', label: '', tmpl: Template.deleteRow}]
+
+    if(Meteor.Device.isTablet()) {
+      fields = [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending', sortable: false},
+                {key: 'vendor', label: 'Vendor', tmpl: Template.vendor, fn: function(value){return value;}, sortByValue: true, sortable: false},
+                {key: 'category', label: 'Category', tmpl: Template.category, fn: function(value){return value;}, sortByValue: true, sortable: false},
+                {key: 'amount', label: 'Amount', tmpl: Template.amount, fn: function(value){return Number(value)*100;}, sortByValue: true, sortable: false},
+                {key: 'date', label: 'Date', tmpl: Template.date, fn: function(value){return value;}, sortByValue: true, sortable: false},
+                {key: 'cleared', label: '', tmpl: Template.crd,
+                fn: function(value, object){
+                 var sortOnVal = (object.cleared === true)? "1" : "0";
+                 sortOnVal += (object.recurring === true)? "1" : "0";
+                 sortOnVal += (object.deposit === true)? "1" : "0";        
+ 
+                 return sortOnVal;
+                },
+                sortByValue: true, sortable: false},
+                {key: '', label: '', tmpl: Template.deleteRow}]
+    } else if(!Meteor.Device.isPhone()) {
+      fields = [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending', sortable: false},
+                {key: 'vendor', label: 'Vendor', tmpl: Template.vendor, fn: function(value){return value;}, sortByValue: true, sortable: false},
+                {key: 'category', label: 'Category', tmpl: Template.category, fn: function(value){return value;}, sortByValue: true, sortable: false},
+                {key: 'amount', label: 'Amount', tmpl: Template.amount, fn: function(value){return Number(value)*100;}, sortByValue: true, sortable: false},
+                {key: 'date', label: 'Date', tmpl: Template.date, fn: function(value){return value;}, sortByValue: true, sortable: false},
+                {key: 'cleared', label: '', tmpl: Template.crd,
+                fn: function(value, object){
+                 var sortOnVal = (object.cleared === true)? "1" : "0";
+                 sortOnVal += (object.recurring === true)? "1" : "0";
+                 sortOnVal += (object.deposit === true)? "1" : "0";        
+      
+                 return sortOnVal;
+                },
+                sortByValue: true, sortable: false},
+                {key: '', label: '', tmpl: Template.deleteRow}]
+    }
+
+
     return {
       rowsPerPage: 999,
       showFilter: false,
@@ -61,21 +112,7 @@ Template.ledger.helpers({
       },
       class: "table table-condensed table-hover table-striped",
       id: 'ledger-table',
-      fields: [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending', sortable: false},
-               {key: 'vendor', label: 'Vendor', tmpl: Template.vendor, fn: function(value){return value;}, sortByValue: true, sortable: false},
-               {key: 'category', label: 'Category', tmpl: Template.category, fn: function(value){return value;}, sortByValue: true, sortable: false},
-               {key: 'amount', label: 'Amount', tmpl: Template.amount, fn: function(value){return Number(value)*100;}, sortByValue: true, sortable: false},
-               {key: 'date', label: 'Date', tmpl: Template.date, fn: function(value){return value;}, sortByValue: true, sortable: false},
-               {key: 'cleared', label: '', tmpl: Template.crd,
-               fn: function(value, object){
-                var sortOnVal = (object.cleared === true)? "1" : "0";
-                sortOnVal += (object.recurring === true)? "1" : "0";
-                sortOnVal += (object.deposit === true)? "1" : "0";        
-
-                return sortOnVal;
-               },
-               sortByValue: true, sortable: false},
-               {key: '', label: '', tmpl: Template.deleteRow}]
+      fields: fields
     };
   }
 });
