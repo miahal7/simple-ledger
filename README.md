@@ -1,4 +1,4 @@
-# Simpe Ledger #
+# Simple Ledger #
 
 * Responsive Layout: (see images below)
 * Responsive Data: Real time updates to the UI. Change the data on one screen and see it instantly update on your other screens.
