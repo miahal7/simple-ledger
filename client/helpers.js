@@ -25,7 +25,7 @@ Template.body.helpers({
       fmtdMonth = moment(month(), 'MM/YY').subtract(1, 'month').format('MMM');
     }
     else if(!Meteor.Device.isPhone()) {
-      fmtdMonth = moment(month(), 'MM/YY').subtract(1, 'month').format('MMMM')
+      fmtdMonth = moment(month(), 'MM/YY').subtract(1, 'month').format('MMMM');
     }
 
     return fmtdMonth;
@@ -37,7 +37,7 @@ Template.body.helpers({
       fmtdMonth = moment(month(), 'MM/YY').add(1, 'month').format('MMM');
     }
     else if(!Meteor.Device.isPhone()) {
-      fmtdMonth = moment(month(), 'MM/YY').add(1, 'month').format('MMMM')
+      fmtdMonth = moment(month(), 'MM/YY').add(1, 'month').format('MMMM');
     }
 
     return fmtdMonth;
@@ -49,7 +49,7 @@ Template.body.helpers({
 
 Template.ledger.helpers({
   transactions: function () {
-    return Transactions.find({month: month()}).fetch();
+    return Transactions.find({month: month()}, {sort: {createdAt: 1, recurring: -1}}).fetch();
   },
   tableSettings: function () {
     var fields = [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending', sortable: false},
@@ -64,7 +64,7 @@ Template.ledger.helpers({
                    return sortOnVal;
                   },
                   sortByValue: true, sortable: false},
-                  {key: '', label: '', tmpl: Template.deleteRow}]
+                  {key: '', label: '', tmpl: Template.deleteRow}];
 
     if(Meteor.Device.isTablet()) {
       fields = [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending', sortable: false},
@@ -81,7 +81,7 @@ Template.ledger.helpers({
                  return sortOnVal;
                 },
                 sortByValue: true, sortable: false},
-                {key: '', label: '', tmpl: Template.deleteRow}]
+                {key: '', label: '', tmpl: Template.deleteRow}];
     } else if(!Meteor.Device.isPhone()) {
       fields = [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending', sortable: false},
                 {key: 'vendor', label: 'Vendor', tmpl: Template.vendor, fn: function(value){return value;}, sortByValue: true, sortable: false},
@@ -97,7 +97,7 @@ Template.ledger.helpers({
                  return sortOnVal;
                 },
                 sortByValue: true, sortable: false},
-                {key: '', label: '', tmpl: Template.deleteRow}]
+                {key: '', label: '', tmpl: Template.deleteRow}];
     }
 
 

@@ -1,5 +1,5 @@
 Meteor.publish("transactions", function () {
-    return Transactions.find({userId: this.userId}, {sort: {recurring: -1, createdAt: 1}});
+    return Transactions.find({userId: this.userId});
 });
 
 Meteor.publish("vendors", function () {
