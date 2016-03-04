@@ -43,14 +43,14 @@
               <tr>
                 <th>Vendor</th>
                 {{#if notPhone}}
-                <th>Category</th>
+                <th class='visible-sm visible-md visible-lg'>Category</th>
                 {{/if}}
                 <th>Amount</th>
                 {{#if notPhone}}
-                <th>Date</th>
+                <th class='visible-sm visible-md visible-lg'>Date</th>
                 {{/if}}
 
-                <th style="width:10%;"></th>
+                <th style="width:10%;"><input id='search' type='text' class='form-control input-sm' placeholder='Search'/></th>
                 <th style="width:10%;">
                   <button id='addTransaction' class="btn btn-sm btn-success">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New
@@ -81,40 +81,59 @@
 </body>
 
 <template name="ledger">
-  {{> reactiveTable collection=transactions settings=tableSettings}}
+  <!-- {{> reactiveTable collection=transactions query settings=tableSettings}} -->
+  <!--       class: "table table-condensed table-hover table-striped",
+      id: 'ledger-table' -->
+  <table id='ledger-table' class='table table-condensed table-hover table-striped'>
+    <thead></thead>
+    <tbody>
+      {{#each transactions query=query}}
+      <tr class="{{rowClass}}">
+        <td>{{>vendor}}</td>
+        <td class='visible-sm visible-md visible-lg'>{{>category}}</td>
+        <td>{{>amount}}</td>
+        <td class='visible-sm visible-md visible-lg'>{{>date}}</td>
+        <td style='min-width: 110px'>{{>crd}}</td>
+        <td>{{>deleteRow}}</td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </template>
 
 <template name="vendor">
-  <input type="text" class="form-control typeahead" name="vendor" 
+  <input type="text" class="form-control input-sm typeahead vendor" name="vendor" 
     placeholder="Vendor" autocomplete="off" spellcheck="off"
     value="{{vendor}}" data-trans-id="{{_id}}" data-field="vendor"
     data-source="vendors">
 </template>
 
 <template name="category">
-  <input type="text" class="form-control typeahead" name="category" 
+  <input type="text" class="form-control  input-sm typeahead category" name="category" 
     placeholder="Category" autocomplete="off" spellcheck="off" 
     value="{{category}}" data-trans-id="{{_id}}" data-field="category"
     data-source="categories">
 </template>
 
 <template name="amount">
-  <input type="text" class="trans-form form-control" placeholder="$0.00" value="{{formattedAmount}}" data-trans-id="{{_id}}" data-field="amount">
+  <input type="text" class="trans-form form-control input-sm amount {{credit}}" placeholder="$0.00" value="{{formattedAmount}}" data-trans-id="{{_id}}" data-field="amount">
 </template>
 
 <template name="date"> 
-  <input type="text" readonly class="trans-form form-control datepicker" placeholder="{{date}}" value="{{date}}" data-trans-id="{{_id}}" data-field="date">
+  <input type="text" readonly class="trans-form form-control input-sm datepicker date" placeholder="{{date}}" value="{{date}}" data-trans-id="{{_id}}" data-field="date">
 </template>
 
 <template name="crd">
   <div class="btn-group" role="group" aria-label="...">
-    <button type="button" class="btn btn-default btn-sm trans-form {{#if cleared}}active{{/if}}" data-trans-id="{{_id}}" data-field="cleared">
+    <button type="button" class="btn btn-default btn-sm trans-form {{#if cleared}}active{{/if}} cleared" data-trans-id="{{_id}}" data-field="cleared">
       <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
     </button>
-    <!-- <button type="button" class="btn btn-default  trans-form {{#if recurring}}active{{/if}}" data-trans-id="{{_id}}" data-field="recurring">R</button> -->
-<!--     <button type="button" class="btn btn-default trans-form {{#if deposit}}active{{/if}}" data-trans-id="{{_id}}" data-field="deposit">
+    <button type="button" class="btn btn-default btn-sm trans-form {{#if recurring}}active{{/if}} recurring" data-trans-id="{{_id}}" data-field="recurring">
+      <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+    </button>
+    <button type="button" class="btn btn-default btn-sm trans-form {{#if deposit}}active{{/if}} deposit" data-trans-id="{{_id}}" data-field="deposit">
       <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
-    </button> -->
+    </button>
   </div>
 </template>
 
