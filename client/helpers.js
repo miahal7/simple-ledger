@@ -60,7 +60,15 @@ Template.ledger.helpers({
         { date:     regex }
       ]},
       { sort: {createdAt: 1, recurring: -1 }}).fetch();
-  }, 
+  },
+  rowClass: function () {
+    console.log("this -> ", this);
+
+    if(this.cleared === true) { return ""; }
+    // if(this.deposit === true) { return "green-text"; } 
+    if(this.cleared === false){ return "red-text"; }
+  }
+
 //   tableSettings: function () {
 //     var fields = [{key: 'createAt', label: 'Created At', hidden: true, hideToggle: true, sort: 'ascending', sortable: false},
 //                   {key: 'vendor', label: 'Vendor', tmpl: Template.vendor, fn: function(value){return value;}, sortByValue: true, sortable: false},
@@ -144,5 +152,11 @@ Template.category.helpers({
 Template.amount.helpers({
   formattedAmount: function () {
     return accounting.formatNumber(this.amount, 2);
+  },
+  credit: function () {
+    console.log("this -> ", this);
+    if(this.deposit === true) { return "green-text"; } 
+
+
   }
 });

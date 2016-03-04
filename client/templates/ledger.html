@@ -88,7 +88,7 @@
     <thead></thead>
     <tbody>
       {{#each transactions query=query}}
-      <tr>
+      <tr class="{{rowClass}}">
         <td>{{>vendor}}</td>
         <td class='visible-sm visible-md visible-lg'>{{>category}}</td>
         <td>{{>amount}}</td>
@@ -116,7 +116,7 @@
 </template>
 
 <template name="amount">
-  <input type="text" class="trans-form form-control input-sm amount" placeholder="$0.00" value="{{formattedAmount}}" data-trans-id="{{_id}}" data-field="amount">
+  <input type="text" class="trans-form form-control input-sm amount {{credit}}" placeholder="$0.00" value="{{formattedAmount}}" data-trans-id="{{_id}}" data-field="amount">
 </template>
 
 <template name="date"> 
