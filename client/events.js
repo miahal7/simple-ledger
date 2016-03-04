@@ -15,6 +15,9 @@ Template.body.events({
   },
   'click .next': function (event) {
     Session.set('month', moment(month(), 'MM/YY').add(1, 'month').format('MM/YY'));
+  },
+  'keyup #search': function (event) {
+    Session.set('query', $(event.currentTarget).val());
   }
 });
 

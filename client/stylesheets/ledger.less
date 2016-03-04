@@ -24,6 +24,12 @@
 
 }
 
+#search {
+  background-color: rgba(0,0,0,0.1);
+  color: #fff;
+  min-width: 80px;
+}
+
 button {
   outline: none !important;
 }
@@ -67,9 +73,11 @@ button {
 }
 
 .undo-overlay {
-  background-color: rgba(217,83,79,.7);
+  // background-color: rgba(217,83,79,.7);
+  background-color: rgba(73,93,108,.7);
+
   width: 0px;
-  height: 47px;
+  height: 39px;
   text-align: center;
   padding-top: 7px;
   position: absolute;
@@ -85,14 +93,14 @@ button {
   transition: width 0s;  
   width: 57px;
   float: right;
-  margin-right: 50%;
+  margin: -3px 10px;
   display: none;
 }
 
 .show-overlay {
   -webkit-transition: width 1s; /* Safari */
   transition: width 1s;  
-  height: 47px;
+  height: 39px;
   right: 25px;
 }
 
@@ -113,10 +121,13 @@ button {
   transition: width 6s;  
   position: absolute;
   width: 0px;
-  height: 3px;
-  top: 2px;
+  height: 31px;
+  top: -26px;
   border-radius: 0;
-  background-color: #d43f3a;
+  // background-color: #d43f3a;
+    background-color: rgba(73,93,108,.7);
+
+
 }
 
 .undo-timer-end {
@@ -191,7 +202,7 @@ div.datepicker {
 
   table tr td.active,
   table tr td span.active {
-    background-color: @brand-success !important; //;
+    background-color: @brand-success !important;
   }
 
   table tr td.day,
@@ -220,6 +231,11 @@ div.datepicker {
     background-color: #5cb85c;
     color: #fff;
     border-color: #4cae4c;
+  }
+
+  .recurring.active {
+    background-color: #5C96B8;
+    border-color: darken(#5C92B8, 10%);
   }
 
   input {
