@@ -6,7 +6,7 @@
 
 <body>
   <nav id="page-header" class="navbar navbar-default navbar-fixed-top" style="line-height: 5em; box-shadow: 1px 5px 7px rgba(0,0,0,0.25);">
-    <div class="container">
+    <div class="container-fluid">
 
       <div class="row">  
         <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">  
@@ -38,20 +38,35 @@
       <div class="row">  
         <div class="col-md-12">
           <div class="datepicker-container-5s"></div>
-          <table id="ledger-table-header" style="line-height: 1em;">
+<!--           <div class="col-md-2">Vendor</div>
+          <div class="col-md-2">Category</div>
+          <div class="col-md-2">Amount</div>
+          <div class="col-md-2">Date</div>
+          <div class="col-md-2">
+            <input id='search' type='text' class='form-control input-sm' placeholder='Search'/>
+          </div>
+          <div class="col-md-2">
+            <button id='addTransaction' class="btn btn-sm btn-success">
+              <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New
+            </button>
+          </div> -->
+
+          <table id="ledger-table-header" class='table table-condensed' style="line-height: 1em;">
             <thead>
               <tr>
                 <th>Vendor</th>
-                {{#if notPhone}}
+                <!-- {{#if notPhone}} -->
                 <th class='visible-sm visible-md visible-lg'>Category</th>
-                {{/if}}
+                <!-- {{/if}} -->
                 <th>Amount</th>
-                {{#if notPhone}}
+                <!-- {{#if notPhone}} -->
                 <th class='visible-sm visible-md visible-lg'>Date</th>
-                {{/if}}
+                <!-- {{/if}} -->
 
-                <th style="width:10%;"><input id='search' type='text' class='form-control input-sm' placeholder='Search'/></th>
-                <th style="width:10%;">
+                <th>
+                  <input id='search' type='text' class='form-control input-sm' placeholder='Search'/>
+                </th>
+                <th style="">
                   <button id='addTransaction' class="btn btn-sm btn-success">
                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> New
                   </button>
@@ -70,9 +85,9 @@
   </nav>
 
 
-  <div class="container-fluid">
+  <div class="container-fluid ledger-container">
       {{#if currentUser}}
-      {{> ledger}}
+        {{> ledger}}
       {{/if}}
   </div>
 
