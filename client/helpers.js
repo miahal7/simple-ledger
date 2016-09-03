@@ -66,7 +66,7 @@ Template.ledger.helpers({
 
     if(this.cleared === true) { return ""; }
     // if(this.deposit === true) { return "green-text"; } 
-    if(this.cleared === false){ return "red-text"; }
+    if(this.cleared === false){ return "yellow-text"; }
   }
 
 //   tableSettings: function () {
