@@ -3,7 +3,7 @@
     {
       "host": "52.24.83.4",
       "username": "ubuntu",
-      "pem": "/Users/jeremiahlucio/Programming/miahal7/private-key/simple-ledger-dev.pem",
+      "pem": "/Users/jeremiahlucio/.ssh/authorized_keys/simple-ledger-dev.pem",
       "env": {}
     }
   ],
