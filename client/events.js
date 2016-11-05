@@ -37,9 +37,6 @@ Template.deleteRow.events({
     var timerWidth = 0;
     $(undo).find(".undo-timer").addClass("undo-timer-end");
 
-    Session.set('changed', Math.random());
-
-
     setTimeout(function () {
       Meteor.call('deleteFlaggedTransactions', transId, function(err, res){
         if(res === 'true') {
@@ -59,8 +56,6 @@ Template.deleteRow.events({
     $(undo).removeClass('show-overlay').width('0');
     $(undo).find(".undo-timer").removeClass("undo-timer-end");
     $(undo).find("div").hide();
-
-    Session.set('changed', Math.random());
 
     Meteor.call('updateTransaction', transId, {deleted: false, updatedAt: moment().format()});
   }
@@ -83,7 +78,6 @@ Template.ledger.events({
     var transUpdate = {updatedAt: moment().format()};
 
     transUpdate[field] = value;
-    Session.set('changed', Math.random());
 
     Meteor.call('updateTransaction', transId, transUpdate);
   },
