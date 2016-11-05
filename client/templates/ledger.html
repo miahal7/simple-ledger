@@ -8,17 +8,17 @@
   <nav id="page-header" class="navbar navbar-default navbar-fixed-top" style="line-height: 5em; box-shadow: 1px 5px 7px rgba(0,0,0,0.25);">
     <div class="container">
 
-      <div class="row">  
-        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">  
+      <div class="row">
+        <div class="col-lg-2 col-md-12 col-sm-12 col-xs-12">
           <h4 class="text-left">{{> loginButtons}}</h4>
         </div>
         {{#if currentUser}}
-        
-        <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">          
+
+        <div class="col-lg-1 col-md-2 col-sm-2 col-xs-3">
           <button type="button" class="btn btn-primary previous">
             <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span> {{prevMonth}}
           </button>
-        </div>  
+        </div>
 
         <div class="col-lg-3 col-md-3 col-sm-8 col-xs-6"><h3 class="text-center">{{month}}</h3></div>
 
@@ -29,13 +29,13 @@
         </div>
 
         <div class="col-lg-2 col-md-offset-1 col-md-2 col-sm-6 col-xs-6 "><h5>Bank Total: {{bankTotal}}</h5></div>
-        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 "><h5>User's Total: {{predictedTotal}}</h5></div>
+        <div class="col-lg-2 col-md-2 col-sm-6 col-xs-6 "><h5>User's Total: {{userTotal}}</h5></div>
         {{/if}}
       </div>
 
       {{#if currentUser}}
 
-      <div class="row">  
+      <div class="row">
         <div class="col-md-12">
           <div class="datepicker-container-5s"></div>
           <table id="ledger-table-header" style="line-height: 1em;">
@@ -102,15 +102,15 @@
 </template>
 
 <template name="vendor">
-  <input type="text" class="form-control input-sm typeahead vendor" name="vendor" 
+  <input type="text" class="form-control input-sm typeahead vendor" name="vendor"
     placeholder="Vendor" autocomplete="off" spellcheck="off"
     value="{{vendor}}" data-trans-id="{{_id}}" data-field="vendor"
     data-source="vendors">
 </template>
 
 <template name="category">
-  <input type="text" class="form-control  input-sm typeahead category" name="category" 
-    placeholder="Category" autocomplete="off" spellcheck="off" 
+  <input type="text" class="form-control  input-sm typeahead category" name="category"
+    placeholder="Category" autocomplete="off" spellcheck="off"
     value="{{category}}" data-trans-id="{{_id}}" data-field="category"
     data-source="categories">
 </template>
@@ -119,7 +119,7 @@
   <input type="text" class="trans-form form-control input-sm amount {{credit}}" placeholder="$0.00" value="{{formattedAmount}}" data-trans-id="{{_id}}" data-field="amount">
 </template>
 
-<template name="date"> 
+<template name="date">
   <input type="text" readonly class="trans-form form-control input-sm datepicker date" placeholder="{{date}}" value="{{date}}" data-trans-id="{{_id}}" data-field="date">
 </template>
 

@@ -31,3 +31,5 @@ spacebars
 check
 standard-minifier-css
 standard-minifier-js
+meteorhacks:aggregate
+reactive-var

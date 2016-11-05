@@ -42,7 +42,7 @@ Template.deleteRow.events({
           console.log("Not deleted, undo pressed");
         }
       });
-    },6000);    
+    },6000);
   },
   "click .undo": function (event, template) {
     var transId = $(event.currentTarget).data('trans-id');
@@ -62,7 +62,7 @@ Template.ledger.events({
     }
     catch(e) {
       $(event.target).select();
-    }    
+    }
   },
   'change input.trans-form, click button.trans-form': function (event) {
     var formEl = $(event.currentTarget);
@@ -72,36 +72,38 @@ Template.ledger.events({
     var transUpdate = {updatedAt: moment().format()};
 
     transUpdate[field] = value;
+    Session.set('changed', Math.random());
+
     Meteor.call('updateTransaction', transId, transUpdate);
   },
   'change .vendor, typeahead:selected .vendor, typeahead:autocompleted .vendor': function (event){
     var tr = $(event.currentTarget).closest('tr');
     var categoryField = tr.find('.category');
-    var vendor = $(event.target).typeahead('val').trim(); 
+    var vendor = $(event.target).typeahead('val').trim();
     var formEl = $(event.target);
     var transUpdate = {vendor: vendor, updatedAt: moment().format()};
     var transId = formEl.data('trans-id');
 
     if(vendor !== "" && vendor.length >= 2){
       console.log("Updating user's vendor collection", vendor);
-      Meteor.call('updateTransaction', transId, transUpdate);    
+      Meteor.call('updateTransaction', transId, transUpdate);
       Meteor.call('upsertVendor', vendor);
     }
   },
   'change .category, typeahead:selected .category, typeahead:autocompleted .category': function (event) {
     var tr = $(event.currentTarget).closest('tr');
     var vendorField = tr.find('.vendor');
-    var category = $(event.target).typeahead('val').trim(); 
+    var category = $(event.target).typeahead('val').trim();
     var formEl = $(event.target);
     var transUpdate = {category: category, updatedAt: moment().format()};
     var transId = formEl.data('trans-id');
 
     if(category !== "" && category.length >= 2){
       console.log("Updating user's category collection", category);
-      Meteor.call('updateTransaction', transId, transUpdate);    
+      Meteor.call('updateTransaction', transId, transUpdate);
       Meteor.call('upsertCategory', category);
     }
-  }  
+  }
 });
 
 window.onresize = function(event) {

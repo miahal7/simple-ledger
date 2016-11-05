@@ -1,4 +1,10 @@
 Meteor.methods({
+  'bankTotal': function () {
+    return aggregateTotal({ cleared: true });
+  },
+  'userTotal': function () {
+    return aggregateTotal({});
+  },
   'insertTransaction': function (month) {
     Transactions.insert(
       {
@@ -19,7 +25,10 @@ Meteor.methods({
     );
   },
   'updateTransaction': function (_id, changed) {
-    console.log("Updating transaction " + _id + " with -> ", changed);
+    if(_.contains(_.keys(changed), "amount")) {
+        changed.amount = parseFloat(parseFloat(changed.amount).toFixed(2));
+    }
+
     Transactions.update(_id, {$set: changed});
   },
   'tempDeleteTransaction': function (_id) {
@@ -62,3 +71,45 @@ Meteor.methods({
 Meteor.startup(function () {
   // code to run on server at startup
 });
+
+var pipeline = function (query) {
+    var mergedQuery = _.extend({ userId: Meteor.userId(), deleted: false }, query);
+    return [
+      {
+        $match: mergedQuery
+      },
+      {
+        $group: {
+          _id: null,
+          total: { $sum: '$amount' }
+        }
+      }
+    ];
+};
+
+var parseResults = function (result) {
+    var total = 0;
+
+    if(!_.isEmpty(result)) {
+        if(!!result[0].total) {
+            total = result[0].total;
+        }
+    }
+
+    return total;
+};
+
+var aggregateTotal = function (query) {
+    // query = {cleared: true} for bankTotal and {} for userTotal
+    var creditPipeline = pipeline(_.extend({ deposit: true }, query));
+    var debitPipeline = pipeline(_.extend({ deposit: false }, query));
+    var credits = Transactions.aggregate(creditPipeline);
+    var debits = Transactions.aggregate(debitPipeline);
+    var total = 0;
+
+    credits = parseResults(credits);
+    debits = parseResults(debits);
+    total = credits - debits;
+
+    return total;
+};
