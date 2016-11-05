@@ -28,6 +28,8 @@ Template.deleteRow.events({
     var undo = template.find('.undo-overlay');
     var trWidth = $(event.currentTarget).closest('tr').width();
 
+    $(event.currentTarget).attr("disabled","disabled");
+
     $(undo).addClass('show-overlay').width(trWidth);
     $(undo).find("div").show('fast');
 
@@ -35,10 +37,13 @@ Template.deleteRow.events({
     var timerWidth = 0;
     $(undo).find(".undo-timer").addClass("undo-timer-end");
 
+    Session.set('changed', Math.random());
+
+
     setTimeout(function () {
       Meteor.call('deleteFlaggedTransactions', transId, function(err, res){
         if(res === 'true') {
-          console.log("Permanently deleted " + transId);
+            console.log("Permanently deleted " + transId);
         } else {
           console.log("Not deleted, undo pressed");
         }
@@ -48,9 +53,14 @@ Template.deleteRow.events({
   "click .undo": function (event, template) {
     var transId = $(event.currentTarget).data('trans-id');
     var undo = template.find('.undo-overlay');
+    var deleteBtn = template.find('.delete');
+    $(deleteBtn).attr("disabled",false);
+
     $(undo).removeClass('show-overlay').width('0');
     $(undo).find(".undo-timer").removeClass("undo-timer-end");
     $(undo).find("div").hide();
+
+    Session.set('changed', Math.random());
 
     Meteor.call('updateTransaction', transId, {deleted: false, updatedAt: moment().format()});
   }

@@ -12,8 +12,9 @@ Template.body.onRendered(function () {
   }
 
   this.autorun(function () {
-      Transactions.find({});
-    //   Session.get('changed');
+    //   Transactions.find({});
+      Session.get('changed');
+      
       Meteor.call('bankTotal', function (error, result) {
             _this.bankTotal.set(result);
       });
