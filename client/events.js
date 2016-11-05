@@ -2,7 +2,8 @@ Template.body.events({
   'click #addTransaction': function (event) {
     Meteor.call('insertTransaction', month(), function () {
       setTimeout(function () {
-        var target = $("tr:last").find('.vendor').find('input[name=vendor]');
+        var target = $("tr:last").find('.vendor');
+
         $('html,body').animate({
           scrollTop: target.offset().top
         }, 1000);
