@@ -56,7 +56,7 @@ module.exports = {
             0
         ],
         "comma-dangle": [
-          0
+            "warn"
         ],
         "no-underscore-dangle": [
             0
