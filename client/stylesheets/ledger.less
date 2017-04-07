@@ -34,47 +34,6 @@ button {
   outline: none !important;
 }
 
-// .table > thead > tr > td.danger,
-// .table > tbody > tr > td.danger,
-// .table > tfoot > tr > td.danger,
-// .table > thead > tr > th.danger,
-// .table > tbody > tr > th.danger,
-// .table > tfoot > tr > th.danger,
-// .table > thead > tr.danger > td,
-// .table > tbody > tr.danger > td,
-// .table > tfoot > tr.danger > td,
-// .table > thead > tr.danger > th,
-// .table > tbody > tr.danger > th,
-// .table > tfoot > tr.danger > th {
-//   background-color: rgba(217,83,79,.7);
-//   // background-color: transparent; //rgba(217,83,79,.7);
-//   // &:active, &:hover, tr {
-//   //   background-color: transparent;
-//   // }
-//   // input {
-//   //   color: rgb(217,83,79) !important;
-//   // }
-// }
-
-// .table > thead > tr > td.success,
-// .table > tbody > tr > td.success,
-// .table > tfoot > tr > td.success,
-// .table > thead > tr > th.success,
-// .table > tbody > tr > th.success,
-// .table > tfoot > tr > th.success,
-// .table > thead > tr.success > td,
-// .table > tbody > tr.success > td,
-// .table > tfoot > tr.success > td,
-// .table > thead > tr.success > th,
-// .table > tbody > tr.success > th,
-// .table > tfoot > tr.success > th {
-//   background-color: rgba(92,184,92,.7);
-//   // background-color: inherit;
-//   // input {
-//   //   color: rgb(92,184,92) !important;
-//   // }
-// }
-
 .undo-overlay {
   // background-color: rgba(217,83,79,.7);
   background-color: rgba(73,93,108,.7);
@@ -145,12 +104,7 @@ button {
 }
 
 .tt-input {
-  // box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075) !important;
-  // &:active {
-  //     -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  //     // box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  //       box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075) !important;
-  //   }
+
 }
 
 .tt-hint {
@@ -185,16 +139,35 @@ button {
 }
 
 #ledger-table-header {
-  width: 100%;
+  // width: 100%;
+  margin-bottom: 0px;
 
-  tr {
-    height: 40px;
-
+  thead > tr {
     th {
-      padding: .75em 0 .25em 0;
-      border-bottom-width: 0px;
+      padding-left: 15px;
+      -webkit-touch-callout: none; /* iOS Safari */
+      -webkit-user-select: none;   /* Chrome/Safari/Opera */
+      -khtml-user-select: none;    /* Konqueror */
+      -moz-user-select: none;      /* Firefox */
+      -ms-user-select: none;       /* IE/Edge */
+      width: 20.1%;
+    }
+
+    th:nth-child(5), th:nth-child(6) {
+      min-width: 0px;
+      padding-left: 0px;
+      width: 0px;
     }
   }
+
+  // tr {
+  //   height: 40px;
+
+  //   th {
+  //     padding: .75em 0 .25em 0;
+  //     border-bottom-width: 0px;
+  //   }
+  // }
 }
 
 div.datepicker {
@@ -222,7 +195,7 @@ div.datepicker {
 
 #ledger-table {
   margin-bottom: 14vw;
-  
+
   thead {
     display: none;
   }
@@ -279,41 +252,54 @@ div.datepicker {
 }
 
 @media (max-width: @screen-xs-max) {
-  .container-fluid {
-    margin-top: 210px;
+  .container-fluid.ledger-container {
+    margin-top: 185px;
   }
 
   div.datepicker {
-    margin-top: 210px;
+    margin-top: 185px;
+  }
+
+  #ledger-table-header > thead > tr {
+    th {
+      padding-left: 15px;
+      width: 33.5%;
+    }
+
+    th:nth-child(5), th:nth-child(6) {
+      min-width: 0px;
+      padding-left: 0px;
+      width: 0px;
+    }
   }
 }
 
 @media (min-width: @screen-sm-min) {
-  .container-fluid {
-    margin-top: 200px;
+  .container-fluid.ledger-container {
+    margin-top: 185px;
   }
 
   div.datepicker {
-    margin-top: 200px;
+    margin-top: 185px;
   }
 }
 
 @media (min-width: @screen-md-min) {
-  .container-fluid {
-    margin-top: 160px;
+  .container-fluid.ledger-container {
+    margin-top: 147px;
   }
 
   div.datepicker {
-    margin-top: 160px;
+    margin-top: 147px;
   }
 }
 
 @media (min-width: @screen-lg-min) {
-  .container-fluid {
-    margin-top: 115px;
-  }
+  .container-fluid.ledger-container {
+    margin-top: 105px;
+}
 
   div.datepicker {
-    margin-top: 115px;
+    margin-top: 105px;
   }
 }
