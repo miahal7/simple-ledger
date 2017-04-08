@@ -75,6 +75,7 @@ oauth2@1.1.11
 observe-sequence@1.0.16
 ordered-dict@1.0.9
 promise@0.8.8
+rajit:bootstrap3-datepicker@1.6.4
 random@1.0.10
 rate-limit@1.0.8
 reactive-dict@1.1.8
