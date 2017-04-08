@@ -32,7 +32,7 @@ Meteor.methods({
         });
     },
     updateTransaction(_id, changed) {
-        Object.assign(_changed, changed);
+        const _changed = Object.assign({}, changed);
 
         if (_.contains(_.keys(_changed), "amount")) {
             _changed.amount = parseFloat(parseFloat(_changed.amount).toFixed(2));

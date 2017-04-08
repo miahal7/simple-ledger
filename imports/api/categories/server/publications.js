@@ -1,6 +1,6 @@
 import { Meteor } from 'meteor/meteor';
 import { Categories } from '../categories.js';
 
-Meteor.publish("categories", () => {
+Meteor.publish("categories", function () {
     return Categories.find({ userId: this.userId });
 });
