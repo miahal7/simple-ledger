@@ -39,3 +39,6 @@ ecmascript
 kadira:flow-router
 kadira:blaze-layout
 rajit:bootstrap3-datepicker
+meteorhacks:fast-render
+meteorhacks:subs-manager
+percolate:momentum
