@@ -1,0 +1,11 @@
+<template name='App_body'>
+    {{> header}}
+
+    <div class="container-fluid ledger-container">
+        {{#if currentUser}}
+                {{> ledger}}
+        {{/if}}
+    </div>
+
+    <!-- {{invokeDatepickerAfterLoad}} -->
+</template>

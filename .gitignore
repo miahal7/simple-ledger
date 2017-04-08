@@ -1,0 +1,14 @@
+settings.json
+*.log
+/.demeteorized/
+.meteor/local
+.meteor/dev_bundle
+.idea
+.DS_Store
+
+
+# npm-shrinkwrap.json seems to change every time you run meteor
+packages/**/npm-shrinkwrap.json
+
+# node modules
+node_modules
