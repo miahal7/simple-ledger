@@ -2,9 +2,10 @@ import { Meteor } from 'meteor/meteor';
 import { ReactiveVar } from 'meteor/reactive-var';
 // import { ReactiveDict } from 'meteor/reactive-dict';
 import { Template } from 'meteor/templating';
-import { FlowRouter } from 'meteor/kadira:flow-router';
-import { _ } from 'meteor/underscore';
+// import { FlowRouter } from 'meteor/kadira:flow-router';
+// import { _ } from 'meteor/underscore';
 import { $ } from 'meteor/jquery';
+import Headroom from 'headroom.js';
 
 import { Transactions } from '../../api/transactions/transactions.js';
 import { Categories } from '../../api/categories/categories.js';
@@ -28,9 +29,12 @@ Template.App_body.onRendered(function () {
     const _this = Object.assign({}, this);
 
     Meteor.call('deleteFlaggedTransactions', false);
-    if (Meteor.Device.isPhone() || Meteor.Device.isTablet()) {
-        $("#page-header").headroom({ offset: 0, tolerance: 25 });
-    }
+
+    const headroom = new Headroom(document.getElementById("page-header"), {
+        offset: 205,
+        tolerance: 5,
+    });
+    headroom.init();
 
     this.autorun(() => {
         Transactions.find({}).fetch();
@@ -121,7 +125,7 @@ Template.ledger.helpers({
             $regex: new RegExp(query, 'ig'),
         };
 
-        const t = Transactions.find({
+        return Transactions.find({
             month: month(),
             $or: [
                 {
@@ -140,9 +144,6 @@ Template.ledger.helpers({
                 recurring: -1,
             },
         }).fetch();
-
-        console.log('Transactions', t);
-        return t;
     },
     rowClass() {
         return (this.cleared) ? '' : 'yellow-text';
@@ -170,7 +171,7 @@ Template.amount.helpers({
         return accounting.formatNumber(this.amount, 2);
     },
     credit() {
-        return (this.deposit) ? '' : 'green-text';
+        return (this.deposit) ? 'green-text' : '';
     },
 });
 
