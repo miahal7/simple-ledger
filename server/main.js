@@ -65,6 +65,24 @@ Meteor.methods({
       },
       {multi: false}
     );
+  },
+  'copyRecurring': function (userId, month) {
+    if (!month) {
+      month = moment().subtract(1, 'month').format('MM/YY');
+    }
+
+    var recurring = Transactions.find({ userId: userId, month: month, recurring: true, deleted: false }).fetch();
+
+    _.each(recurring, function (r) {
+      delete r._id;
+      r.month = moment().format('MM/YY');
+      r.date = moment(r.date, "MM/DD/YYYY").add(1, 'month').format('MM/DD/YYYY');
+      r.cleared = false;
+      r.createdAt = moment().format(),
+      r.updatedAt = moment().format()
+
+      Transactions.insert(r);
+    });
   }
 });
 

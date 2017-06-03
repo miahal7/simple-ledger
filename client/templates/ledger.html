@@ -84,21 +84,25 @@
   <!-- {{> reactiveTable collection=transactions query settings=tableSettings}} -->
   <!--       class: "table table-condensed table-hover table-striped",
       id: 'ledger-table' -->
-  <table id='ledger-table' class='table table-condensed table-hover table-striped'>
-    <thead></thead>
-    <tbody>
-      {{#each transactions query=query}}
-      <tr class="{{rowClass}}">
-        <td>{{>vendor}}</td>
-        <td class='visible-sm visible-md visible-lg'>{{>category}}</td>
-        <td>{{>amount}}</td>
-        <td class='visible-sm visible-md visible-lg'>{{>date}}</td>
-        <td style='min-width: 110px'>{{>crd}}</td>
-        <td>{{>deleteRow}}</td>
-      </tr>
-      {{/each}}
-    </tbody>
-  </table>
+  {{#if transactions}}
+    <table id='ledger-table' class='table table-condensed table-hover table-striped'>
+      <thead></thead>
+      <tbody>
+        {{#each transactions query=query}}
+        <tr class="{{rowClass}}">
+          <td>{{>vendor}}</td>
+          <td class='visible-sm visible-md visible-lg'>{{>category}}</td>
+          <td>{{>amount}}</td>
+          <td class='visible-sm visible-md visible-lg'>{{>date}}</td>
+          <td style='min-width: 110px'>{{>crd}}</td>
+          <td>{{>deleteRow}}</td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  {{else}}
+    <button type="button" class='btn btn-primary copy-recurring'>Copy Recurring</button>
+  {{/if}}
 </template>
 
 <template name="vendor">

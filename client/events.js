@@ -108,6 +108,11 @@ Template.ledger.events({
       Meteor.call('updateTransaction', transId, transUpdate);
       Meteor.call('upsertCategory', category);
     }
+  },
+  'click .copy-recurring': function (event) {
+    if (confirm('Copy recurring from previous month?')) {
+      Meteor.call('copyRecurring', Meteor.userId());
+    }
   }
 });
 
