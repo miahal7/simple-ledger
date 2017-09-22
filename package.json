@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "babel-runtime": "^6.18.0",
-    "bcrypt": "^1.0.2",
+    "bcrypt": "https://registry.npmjs.org/bcrypt/-/bcrypt-1.0.2.tgz",
     "fibers": "1.0.15",
     "headroom.js": "^0.9.3",
     "highcharts": "4.2.6",
