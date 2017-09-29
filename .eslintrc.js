@@ -11,7 +11,7 @@ module.exports = {
     "rules": {
         "indent": [
             "warn",
-            4,
+            2,
             { "SwitchCase": 1 }
         ],
         "linebreak-style": [
@@ -30,7 +30,7 @@ module.exports = {
         "max-len": [
            1, // warn
            120, // max-length
-           4, //tab-width
+           2, //tab-width
            {
                ignoreComments: true,
                ignoreRegExpLiterals: true

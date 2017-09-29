@@ -9,9 +9,12 @@ import { Transactions } from '/imports/api/transactions/transactions.js';
 
 import './header.html';
 
+Template.header.onCreated(function () {
+  this.bankTotal = new ReactiveVar(0);
+  this.userTotal = new ReactiveVar(0);
+});
+
 Template.header.onRendered(function () {
-    this.bankTotal = new ReactiveVar(0);
-    this.userTotal = new ReactiveVar(0);
     const _this = Object.assign({}, this);
 
     this.autorun(() => {

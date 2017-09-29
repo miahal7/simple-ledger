@@ -6,6 +6,9 @@ settings.json
 .idea
 .DS_Store
 
+# build directory
+build
+bundle
 
 # npm-shrinkwrap.json seems to change every time you run meteor
 packages/**/npm-shrinkwrap.json
