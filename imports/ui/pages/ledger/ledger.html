@@ -1,21 +1,25 @@
 <template name="ledger">
-    <!-- {{#momentum plugin='fade'}} -->
-        {{#if subsReady}}
-            <table id='ledger-table' class='table table-condensed table-hover table-striped'>
-                <thead></thead>
-                <tbody>
-                    {{#each transactions query=query}}
-                        <tr class="{{rowClass}}">
-                            <td>{{> vendorInput}}</td>
-                            <td class='visible-sm visible-md visible-lg'>{{> categoryInput}}</td>
-                            <td>{{> amountInput}}</td>
-                            <td class='visible-sm visible-md visible-lg'>{{> dateInput}}</td>
-                            <td style='min-width: 110px'>{{> crdBtnGroup}}</td>
-                            <td>{{> deleteRowBtn}}</td>
-                        </tr>
-                    {{/each}}
-                </tbody>
-            </table>
+    {{#if subsReady}}
+      <!-- {{#momentum plugin='fade'}} -->
+        {{#if transactions}}
+          <table id='ledger-table' class='table table-condensed table-hover table-striped'>
+            <thead></thead>
+            <tbody>
+              {{#each transactions query=query}}
+                <tr class="{{rowClass}}">
+                  <td>{{> vendorInput}}</td>
+                  <td class='visible-sm visible-md visible-lg'>{{> categoryInput}}</td>
+                  <td>{{> amountInput}}</td>
+                  <td class='visible-sm visible-md visible-lg'>{{> dateInput}}</td>
+                  <td style='min-width: 110px'>{{> crdBtnGroup}}</td>
+                  <td>{{> deleteRowBtn}}</td>
+                </tr>
+              {{/each}}
+            </tbody>
+          </table>
+        {{else}}
+          <button type="button" class='btn btn-primary copy-recurring'>Copy Recurring</button>
         {{/if}}
-    <!-- {{/momentum}} -->
+      <!-- {{/momentum}} -->
+    {{/if}}
 </template>
