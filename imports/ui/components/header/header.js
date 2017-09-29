@@ -15,91 +15,91 @@ Template.header.onCreated(function () {
 });
 
 Template.header.onRendered(function () {
-    const _this = Object.assign({}, this);
+  const _this = Object.assign({}, this);
 
-    this.autorun(() => {
-        Transactions.find({}).fetch();
+  this.autorun(() => {
+    Transactions.find({}).fetch();
 
-        Meteor.call('bankTotal', function (error, result) {
-            _this.bankTotal.set(result);
-        });
-        Meteor.call('userTotal', function (error, result) {
-            _this.userTotal.set(result);
-        });
+    Meteor.call('bankTotal', function (error, result) {
+      _this.bankTotal.set(result);
     });
+    Meteor.call('userTotal', function (error, result) {
+      _this.userTotal.set(result);
+    });
+  });
 });
 
 Template.header.helpers({
-    bankTotal() {
-        return accounting.formatMoney(Template.instance().bankTotal.get());
-    },
-    userTotal() {
-        return accounting.formatMoney(Template.instance().userTotal.get());
-    },
-    month() {
-        const month = moment(FlowRouter.getParam("month"), 'MMM_YYYY');
-        let format = "MMM 'YY";
+  bankTotal() {
+    return accounting.formatMoney(Template.instance().bankTotal.get());
+  },
+  userTotal() {
+    return accounting.formatMoney(Template.instance().userTotal.get());
+  },
+  month() {
+    const month = moment(FlowRouter.getParam("month"), 'MMM_YYYY');
+    let format = "MMM 'YY";
 
-        if (Meteor.Device.isTablet()) {
-            format = 'MMM YYYY';
-        } else if (!Meteor.Device.isPhone()) {
-            format = 'MMMM YYYY';
-        }
+    if (Meteor.Device.isTablet()) {
+      format = 'MMM YYYY';
+    } else if (!Meteor.Device.isPhone()) {
+      format = 'MMMM YYYY';
+    }
 
-        return month.format(format);
-    },
-    prevMonth() {
-        const month = moment(FlowRouter.getParam("month"), 'MMM_YYYY').subtract(1, 'month');
-        let format = "";
+    return month.format(format);
+  },
+  prevMonth() {
+    const month = moment(FlowRouter.getParam("month"), 'MMM_YYYY').subtract(1, 'month');
+    let format = "";
 
-        if (Meteor.Device.isTablet()) {
-            format = 'MMM';
-        } else if (!Meteor.Device.isPhone()) {
-            format = 'MMMM';
-        }
+    if (Meteor.Device.isTablet()) {
+      format = 'MMM';
+    } else if (!Meteor.Device.isPhone()) {
+      format = 'MMMM';
+    }
 
-        return month.format(format);
-    },
-    nextMonth() {
-        const month = moment(FlowRouter.getParam("month"), 'MMM_YYYY').add(1, 'month');
-        let format = "";
+    return month.format(format);
+  },
+  nextMonth() {
+    const month = moment(FlowRouter.getParam("month"), 'MMM_YYYY').add(1, 'month');
+    let format = "";
 
-        if (Meteor.Device.isTablet()) {
-            format = 'MMM';
-        } else if (!Meteor.Device.isPhone()) {
-            format = 'MMMM';
-        }
+    if (Meteor.Device.isTablet()) {
+      format = 'MMM';
+    } else if (!Meteor.Device.isPhone()) {
+      format = 'MMMM';
+    }
 
-        return month.format(format);
-    },
+    return month.format(format);
+  },
 });
 
 Template.header.events({
-    'click #addTransaction'() {
-        const month = parseMonthURI(FlowRouter.getParam('month'));
+  'click #addTransaction'() {
+    const month = parseMonthURI(FlowRouter.getParam('month'));
 
-        Meteor.call('insertTransaction', month, () => {
-            setTimeout(() => {
-                const target = $("tr:last").find('.vendor');
+    Meteor.call('insertTransaction', month, () => {
+      setTimeout(() => {
+        const target = $("tr:last").find('.vendor');
 
-                $('html, body').animate({
-                    scrollTop: target.offset().top,
-                }, 1000);
-                target.focus().select();
-            }, 0);
-        });
-    },
-    'click .previous'() {
-        const initialMonth = FlowRouter.getParam("month");
-        const newMonth = moment(initialMonth, 'MMM_YYYY').subtract(1, 'month').format('MMM_YYYY');
-        FlowRouter.go(`/transactions/${newMonth}`);
-    },
-    'click .next'() {
-        const initialMonth = FlowRouter.getParam("month");
-        const newMonth = moment(initialMonth, 'MMM_YYYY').add(1, 'month').format('MMM_YYYY');
-        FlowRouter.go(`/transactions/${newMonth}`);
-    },
-    'keyup #search'(event) {
-        Session.set('query', $(event.currentTarget).val());
-    },
+        $('html, body').animate({
+          scrollTop: target.offset().top,
+        }, 1000);
+        target.focus().select();
+      }, 0);
+    });
+  },
+  'click .previous'() {
+    const initialMonth = FlowRouter.getParam("month");
+    const newMonth = moment(initialMonth, 'MMM_YYYY').subtract(1, 'month').format('MMM_YYYY');
+    FlowRouter.go(`/transactions/${newMonth}`);
+  },
+  'click .next'() {
+    const initialMonth = FlowRouter.getParam("month");
+    const newMonth = moment(initialMonth, 'MMM_YYYY').add(1, 'month').format('MMM_YYYY');
+    FlowRouter.go(`/transactions/${newMonth}`);
+  },
+  'keyup #search'(event) {
+    Session.set('query', $(event.currentTarget).val());
+  },
 });
