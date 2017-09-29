@@ -1,5 +1,8 @@
 {
   "public": {
 
+  },
+  "development": {
+    "MONGO_OPLOG_URL": "mongodb://localhost:3001/meteor"
   }
 }
