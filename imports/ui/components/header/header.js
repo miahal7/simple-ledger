@@ -37,8 +37,10 @@ Template.header.helpers({
     return accounting.formatMoney(Template.instance().userTotal.get());
   },
   month() {
-    const month = moment(FlowRouter.getParam("month"), 'MMM_YYYY');
+    let month = FlowRouter.getParam("month") || moment().format('MMM_YYYY');
     let format = "MMM 'YY";
+
+    month = moment(month, 'MMM_YYYY');
 
     if (Meteor.Device.isTablet()) {
       format = 'MMM YYYY';
@@ -49,8 +51,10 @@ Template.header.helpers({
     return month.format(format);
   },
   prevMonth() {
-    const month = moment(FlowRouter.getParam("month"), 'MMM_YYYY').subtract(1, 'month');
+    let month = FlowRouter.getParam("month") || moment().format('MMM_YYYY');
     let format = "";
+
+    month = moment(month, 'MMM_YYYY').subtract(1, 'month');
 
     if (Meteor.Device.isTablet()) {
       format = 'MMM';
@@ -61,8 +65,10 @@ Template.header.helpers({
     return month.format(format);
   },
   nextMonth() {
-    const month = moment(FlowRouter.getParam("month"), 'MMM_YYYY').add(1, 'month');
+    let month = FlowRouter.getParam("month") || moment().format('MMM_YYYY');
     let format = "";
+
+    month = moment(month, 'MMM_YYYY').add(1, 'month');
 
     if (Meteor.Device.isTablet()) {
       format = 'MMM';
@@ -90,12 +96,12 @@ Template.header.events({
     });
   },
   'click .previous'() {
-    const initialMonth = FlowRouter.getParam("month");
+    const initialMonth = FlowRouter.getParam("month") || moment().format('MMM_YYYY');
     const newMonth = moment(initialMonth, 'MMM_YYYY').subtract(1, 'month').format('MMM_YYYY');
     FlowRouter.go(`/transactions/${newMonth}`);
   },
   'click .next'() {
-    const initialMonth = FlowRouter.getParam("month");
+    const initialMonth = FlowRouter.getParam("month") || moment().format('MMM_YYYY');
     const newMonth = moment(initialMonth, 'MMM_YYYY').add(1, 'month').format('MMM_YYYY');
     FlowRouter.go(`/transactions/${newMonth}`);
   },

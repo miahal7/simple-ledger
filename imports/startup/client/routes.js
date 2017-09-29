@@ -8,7 +8,7 @@ import '/imports/ui/pages/ledger/ledger.js';
 FlowRouter.route('/', {
     name: 'App.home',
     action() {
-        BlazeLayout.render('App_body', { main: 'app_rootRedirector' });
+        BlazeLayout.render('App_body', { main: 'app_rootRedirector', month: moment().format("MMM_YYYY") });
     },
 });
 
