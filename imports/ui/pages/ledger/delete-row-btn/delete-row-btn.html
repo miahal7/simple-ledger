@@ -1,0 +1,13 @@
+<template name='deleteRowBtn'>
+  <button type="button" class="btn btn-danger btn-sm delete" data-trans-id="{{_id}}">
+    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+  </button>
+  <div class="undo-overlay">
+    <div class='btn btn-sm btn-primary undo' data-trans-id="{{_id}}">
+      <div class="undo-timer-wrapper">
+        <div class="undo-timer"></div>
+      </div>
+      Undo
+    </div>
+  </div>
+</template>

@@ -1,0 +1,13 @@
+<template name="crdBtnGroup">
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default btn-sm trans-form {{#if cleared}}active{{/if}} cleared" data-trans-id="{{_id}}" data-field="cleared">
+            <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-sm trans-form {{#if recurring}}active{{/if}} recurring" data-trans-id="{{_id}}" data-field="recurring">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+        </button>
+        <button type="button" class="btn btn-default btn-sm trans-form {{#if deposit}}active{{/if}} deposit" data-trans-id="{{_id}}" data-field="deposit">
+            <span class="glyphicon glyphicon-usd" aria-hidden="true"></span>
+        </button>
+    </div>
+</template>
